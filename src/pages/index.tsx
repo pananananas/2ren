@@ -1,13 +1,18 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { SignIn } from "@clerk/nextjs";
-import Head from "next/head";
-import Link from "next/link";
-
 import { api } from "~/utils/api";
+import Head from "next/head";
+import { CreateItem } from "~/components/CreateItem";
+
+
+
 
 export default function Home() {
   const user = useUser();
-  const { data } = api.items.getAll.useQuery();
+  const { data, isLoading } = api.items.getAll.useQuery();
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (!data) return <div>Something went wrong</div>;
 
   return (
     <>
@@ -18,7 +23,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://use.typekit.net/tzu8wjs.css" />
       </Head>
       <main className="flex h-screen justify-center ">
-        <div className="flex h-full w-full flex-col  border-2 border-lime-900 md:w-2/3">
+        <div className="flex h-full w-full flex-col p-4 md:w-2/3">
           <div>
             {!user.isSignedIn && <SignInButton />}
             {!!user.isSignedIn && <SignOutButton />}
@@ -27,6 +32,8 @@ export default function Home() {
           <div>
             {data?.map((item) => <div key={item.id}> {item.name} </div>)}
           </div>
+
+          <CreateItem/>
         </div>
       </main>
     </>

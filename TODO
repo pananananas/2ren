@@ -1,6 +1,4 @@
-- Pola w bazie danych
 - Dodowanie rzeczy do bazy danych z poziomu frontu
-- Wyświetlanie rzeczy z bazy
 
 - konto admina (może dodawać/edytować/usuwać itemy)
 - konto zwykłego użytkownika (może wyświetlać itemy)
