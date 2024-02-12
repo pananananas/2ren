@@ -21,7 +21,7 @@ model Item {
   material    String   @db.VarChar(255)
   description String   @db.VarChar(255)
   authorID    String
-  display     Boolean  @default(true)
+  display     Boolean  @default(false)
   // image
 
   @@index([material])

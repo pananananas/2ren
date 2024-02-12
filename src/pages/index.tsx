@@ -13,7 +13,7 @@ const Content = () => {
 
   return (
     <div className="flex flex-col">
-      {[...data].map(({ item, author }) => (
+      {data.map(({ item, author }) => (
         <div key={item.id} className="">
           {item.material} {item.price} {item.amount} {item.display}{" "}
           {item.description} {author?.username}

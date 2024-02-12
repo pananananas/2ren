@@ -1,6 +1,11 @@
 import { clerkClient } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/server";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { z } from "zod";
+import {
+  createTRPCRouter,
+  privateProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 
 const filterUserForCLient = (user: User) => {
   return {
@@ -35,4 +40,31 @@ export const itemsRouter = createTRPCRouter({
       author: users.find((user) => user.id === item.authorID),
     }));
   }),
+
+  create: privateProcedure
+    .input(
+      z.object({
+        name: z.string().min(1).max(280),
+        color: z.string().max(100),
+        material: z.string().min(1).max(280),
+        category: z.string().min(1).max(280),
+        price: z.string().max(280),
+        currency: z.string().max(280),
+        amount: z.string().max(280),
+        display: z.boolean(),
+        description: z.string().min(0).max(1000),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const authorID = ctx.userId;
+
+      const item = await ctx.db.item.create({
+        data: {
+          authorID: authorID,
+          ...input,
+        },
+      });
+
+      return item;
+    }),
 });

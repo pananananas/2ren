@@ -1,6 +1,4 @@
-- Dodowanie rzeczy do bazy danych z poziomu frontu
-
 - konto admina (może dodawać/edytować/usuwać itemy)
 
-
+- zmiana na formularza z dialog na form aby wyświetlać błędy walidacji
 - dark mode
