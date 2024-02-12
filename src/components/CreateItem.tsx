@@ -29,6 +29,7 @@ const CreateItem = () => {
               Material
             </Label>
             <Input
+            name="dupp"
               id="name"
               defaultValue="Enter your material type"
               className="text-grey-200 col-span-3"
@@ -39,6 +40,7 @@ const CreateItem = () => {
               Username
             </Label>
             <Input
+            name="dupp"
               id="username"
               defaultValue="@peduarte"
               className="col-span-3"

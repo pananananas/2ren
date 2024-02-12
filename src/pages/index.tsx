@@ -3,9 +3,6 @@ import { api } from "~/utils/api";
 import Head from "next/head";
 import { CreateItem } from "~/components/CreateItem";
 
-
-
-
 export default function Home() {
   const user = useUser();
   const { data, isLoading } = api.items.getAll.useQuery();
@@ -33,7 +30,7 @@ export default function Home() {
             {data?.map((item) => <div key={item.id}> {item.name} </div>)}
           </div>
 
-          <CreateItem/>
+          <CreateItem />
         </div>
       </main>
     </>
