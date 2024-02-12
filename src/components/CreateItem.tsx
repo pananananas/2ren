@@ -10,6 +10,8 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
+import { Switch } from "./ui/switch";
 
 const CreateItem = () => {
   return (
@@ -18,36 +20,48 @@ const CreateItem = () => {
         <Button variant="outline">Add Item</Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Add new item</DialogTitle>
           <DialogDescription>You can add new items here.</DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
+        <div className="grid gap-4 py-1">
+          <div className=" items-center gap-4">
+            <Label htmlFor="name" className="text-left">
               Material
             </Label>
             <Input
-            name="dupp"
+              name="dupp"
               id="name"
-              defaultValue="Enter your material type"
+              // defaultValue="Enter your material type"
+              placeholder="Enter your material type"
               className="text-grey-200 col-span-3"
             />
           </div>
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              Username
+              Price
             </Label>
             <Input
-            name="dupp"
-              id="username"
-              defaultValue="@peduarte"
+              name="dupp"
+              id="price"
+              // defaultValue="@peduarte"
+              placeholder="Enter price"
               className="col-span-3"
             />
           </div>
+          <div className="items-center gap-4">
+            <Label htmlFor="name" className="text-left">
+              Description
+            </Label>
+            <Textarea placeholder="Description of your meterial" />
+          </div>
+          <div className="flex items-center space-x-2">
+            <Switch id="display-item" />
+            <Label htmlFor="display-item">Display item in home page </Label>
+          </div>
         </div>
-        <DialogFooter>
+        <DialogFooter className="">
           <Button type="submit">Save</Button>
         </DialogFooter>
       </DialogContent>

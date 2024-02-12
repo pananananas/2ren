@@ -2,6 +2,7 @@ import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import Head from "next/head";
 import { CreateItem } from "~/components/CreateItem";
+import { ModeToggle } from "~/components/theme-provider";
 
 export default function Home() {
   const user = useUser();
@@ -30,7 +31,9 @@ export default function Home() {
             {data?.map((item) => <div key={item.id}> {item.name} </div>)}
           </div>
 
-          <CreateItem />
+          {!!user.isSignedIn && <CreateItem />}
+
+          <ModeToggle />
         </div>
       </main>
     </>

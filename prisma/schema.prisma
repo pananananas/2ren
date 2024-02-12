@@ -10,7 +10,7 @@ datasource db {
 
 model Item {
   id          Int      @id @default(autoincrement())
-  name        String 
+  name        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   color       String   @db.VarChar(255)
@@ -21,6 +21,7 @@ model Item {
   material    String   @db.VarChar(255)
   description String   @db.VarChar(255)
   authorID    String
+  display     Boolean  @default(true)
   // image
 
   @@index([material])

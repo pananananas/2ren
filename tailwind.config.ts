@@ -18,6 +18,12 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        'rooney-sans':['rooney-sans', 'sans-serif'],  
+      },
+      fontSize: {
+        '3xl': '32px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
