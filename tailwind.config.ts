@@ -6,7 +6,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        'rooney-sans':['rooney-sans', 'sans-serif'],  
+        
+      },
+      fontSize: {
+        '3xl': '32px',
       },
     },
   },

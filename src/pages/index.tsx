@@ -15,13 +15,19 @@ export default function Home() {
         <title>2REN App</title>
         <meta name="description" content="Your management system" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
+        <link rel="stylesheet" href="https://use.typekit.net/tzu8wjs.css" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div>
-          {!user.isSignedIn && <SignInButton />}
-          {!!user.isSignedIn && <SignOutButton />}
+      <main className="flex h-screen justify-center ">
+        <div className="flex h-full w-full flex-col  border-2 border-lime-900 md:w-2/3">
+          <div>
+            {!user.isSignedIn && <SignInButton />}
+            {!!user.isSignedIn && <SignOutButton />}
+          </div>
+          <span className="text-3xl font-bold">Available products</span>
+          <div>
+            {data?.map((item) => <div key={item.id}> {item.name} </div>)}
+          </div>
         </div>
-        <div>{data?.map((item) => <div key={item.id}> {item.name} </div>)}</div>
       </main>
     </>
   );

@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    @apply 
+    bg-gray-200 
+    dark:bg-slate-800 
+    text-neutral-900
+    dark:text-neutral-100
+    font-rooney-sans
+}
+
+
+  
