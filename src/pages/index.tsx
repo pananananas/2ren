@@ -12,6 +12,7 @@ export default function Home() {
 
   if (!data) return <div>Something went wrong</div>;
 
+  // console.log(user)
   return (
     <>
       <Head>
@@ -20,15 +21,19 @@ export default function Home() {
         {/* <link rel="icon" href="/favicon.ico" /> */}
         <link rel="stylesheet" href="https://use.typekit.net/tzu8wjs.css" />
       </Head>
-      <main className="flex h-screen justify-center ">
-        <div className="flex h-full w-full flex-col p-4 md:w-2/3">
+      <main className="flex h-screen justify-center">
+        <div className="flex h-full w-full flex-col gap-2  p-4 md:w-2/3">
           <div>
             {!user.isSignedIn && <SignInButton />}
             {!!user.isSignedIn && <SignOutButton />}
           </div>
           <span className="text-3xl font-bold">Available products</span>
-          <div>
-            {data?.map((item) => <div key={item.id}> {item.name} </div>)}
+          <div className="flex flex-col">
+            {[...data].map(({ item, author }) => (
+              <div key={item.id} className="">
+                {item.material} {item.price} {item.amount} {item.display} {item.description}  {author?.username} 
+              </div>
+            ))}
           </div>
 
           {!!user.isSignedIn && <CreateItem />}
