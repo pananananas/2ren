@@ -1,7 +1,6 @@
 import { api } from "~/utils/api";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import React, { useEffect, useState } from "react";
 import { LoadingPage } from "../loading";
 
 export default function ItemsTable() {
@@ -13,7 +12,7 @@ export default function ItemsTable() {
   if (error) return <div>An error has occurred: {error.message}</div>;
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container py-4">
       <DataTable columns={columns} data={items} />
     </div>
   );
