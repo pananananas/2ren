@@ -2,7 +2,7 @@
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox"
+import { Checkbox } from "../ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,7 @@ import {
 
 // This type is used to define the shape of our data.
 import { z } from "zod";
+import { api } from "~/utils/api";
 
 const itemTableSchema = z.object({
   id: z.number(),
@@ -114,6 +115,18 @@ export const columns: ColumnDef<ItemTable>[] = [
     id: "actions",
     cell: ({ row }) => {
       const item = row.original;
+      const ctx = api.useUtils();
+      const { mutate: deleteItem, isLoading: isDeleting } =
+        api.items.delete.useMutation({
+          onSuccess: () => {
+            // Invalidate and refetch the items list
+            void ctx.items.getAll.invalidate();
+          },
+        });
+      const handleDelete = () => {
+        // Call the delete mutation
+        deleteItem(item.id);
+      };
 
       return (
         <DropdownMenu>
@@ -131,8 +144,10 @@ export const columns: ColumnDef<ItemTable>[] = [
               Copy material
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit material</DropdownMenuItem>
-            <DropdownMenuItem>Delete material</DropdownMenuItem>
+            <DropdownMenuItem>Edit item</DropdownMenuItem>
+            <DropdownMenuItem onClick={handleDelete}>
+              <span className="text-red-600">Delete item</span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

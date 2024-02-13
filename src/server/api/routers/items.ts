@@ -67,4 +67,18 @@ export const itemsRouter = createTRPCRouter({
 
       return item;
     }),
+  delete: privateProcedure
+    .input(z.number())
+    .mutation(async ({ ctx, input }) => {
+      const authorID = ctx.userId;
+
+      const item = await ctx.db.item.deleteMany({
+        where: {
+          id: input,
+          authorID: authorID,
+        },
+      });
+
+      return item;
+    }),
 });
