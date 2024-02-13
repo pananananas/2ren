@@ -2,6 +2,7 @@
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +34,28 @@ const itemTableSchema = z.object({
 export type ItemTable = z.infer<typeof itemTableSchema>;
 
 export const columns: ColumnDef<ItemTable>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -67,18 +90,18 @@ export const columns: ColumnDef<ItemTable>[] = [
     accessorKey: "currency",
     header: "Currency",
   },
-  // {
-  //   accessorKey: "amount",
-  //   header: "Amount",
-  // },
-  // {
-  //   accessorKey: "description",
-  //   header: "Description",
-  // },
-  // {
-  //   accessorKey: "color",
-  //   header: "Color",
-  // },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+  },
+  {
+    accessorKey: "description",
+    header: "Description",
+  },
+  {
+    accessorKey: "color",
+    header: "Color",
+  },
   // {
   //   accessorKey: "authorID",
   //   header: "Author ID",
@@ -108,8 +131,8 @@ export const columns: ColumnDef<ItemTable>[] = [
               Copy material
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View item details</DropdownMenuItem>
+            <DropdownMenuItem>Edit material</DropdownMenuItem>
+            <DropdownMenuItem>Delete material</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

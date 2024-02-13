@@ -1,3 +1,5 @@
+// Table built with: https://ui.shadcn.com/docs/components/data-table
+
 import { api } from "~/utils/api";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";

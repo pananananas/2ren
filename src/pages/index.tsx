@@ -4,7 +4,7 @@ import Head from "next/head";
 import { CreateItem } from "~/components/create-item";
 import { ModeToggle } from "~/components/theme-provider";
 import { LoadingPage } from "~/components/loading";
-import ItemsTable from "~/components/dashboard-table/page";
+import ItemsTable from "~/components/dashboard-table/items-data-table";
 
 const Content = () => {
   const { data, isLoading } = api.items.getAll.useQuery();
