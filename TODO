@@ -1,4 +1,10 @@
-- konto admina (może dodawać/edytować/usuwać itemy)
+Backend:
+    - konto admina (może dodawać/edytować/usuwać itemy)
+    - zmiana na formularza z dialog na form aby wyświetlać błędy walidacji
+    - dodawanie zdjęć do itemów
 
-- zmiana na formularza z dialog na form aby wyświetlać błędy walidacji
-- dark mode
+Frontend:
+    - dark mode
+    - Projekt formularza, color picker, image drop
+    - Item Card
+    - Tabela z itemami (usuwanie itemów, edycja itemów)

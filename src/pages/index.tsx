@@ -4,6 +4,7 @@ import Head from "next/head";
 import { CreateItem } from "~/components/create-item";
 import { ModeToggle } from "~/components/theme-provider";
 import { LoadingPage } from "~/components/loading";
+import ItemsTable from "~/components/dashboard-table/page";
 
 const Content = () => {
   const { data, isLoading } = api.items.getAll.useQuery();
@@ -47,8 +48,10 @@ export default function Home() {
           </div>
           <span className="text-3xl font-bold">Available products</span>
           <Content />
-          {!!isSignedIn && <CreateItem />}
+          
           {/* <ModeToggle /> */}
+          <ItemsTable />
+          {!!isSignedIn && <CreateItem />}
         </div>
       </main>
     </>

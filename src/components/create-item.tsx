@@ -123,7 +123,7 @@ const ctx = api.useUtils();
           </div>
           <div className="flex items-center space-x-2">
             <Switch
-              id="display-item"
+              id="display-item"     // not working TODO: fix
               // checked={display}
               // onChange={(e) => setDisplay(e.target.checked)}
             />
