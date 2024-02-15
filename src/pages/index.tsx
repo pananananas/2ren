@@ -4,6 +4,7 @@ import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
 import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
+import { UploadButton } from "~/utils/uploadthing";
 
 const Content = () => {
   const { data, isLoading } = api.items.getAll.useQuery();
@@ -47,7 +48,19 @@ export default function Home() {
           </div>
           <span className="text-3xl font-bold">Available products</span>
           <Content />
-          
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              // Do something with the response
+              console.log("Files: ", res);
+              alert("Upload Completed");
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              alert(`ERROR! ${error.message}`);
+            }}
+          />
+
           {/* <ModeToggle /> */}
           <ItemsTable />
           {!!isSignedIn && <CreateItemForm />}
