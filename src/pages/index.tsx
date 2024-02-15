@@ -1,9 +1,7 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import { api } from "~/utils/api";
 import Head from "next/head";
-import { CreateItem } from "~/components/item-manipulation/create-item";
-// import { ModeToggle } from "~/components/theme-provider";
+import { api } from "~/utils/api";
 import { LoadingPage } from "~/components/loading";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
 import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
 
@@ -17,8 +15,8 @@ const Content = () => {
     <div className="flex flex-col">
       {data.map(({ item, author }) => (
         <div key={item.id} className="">
-          {item.material} {item.price} {item.amount} {item.display}{" "}
-          {item.description} {author?.username}
+          {item.name} {item.price} {item.amount} {item.display}{" "}
+          {item.description} {author?.firstName} {author?.lastName}
         </div>
       ))}
     </div>
@@ -52,8 +50,7 @@ export default function Home() {
           
           {/* <ModeToggle /> */}
           <ItemsTable />
-          {!!isSignedIn && <CreateItem />}
-          <CreateItemForm/>
+          {!!isSignedIn && <CreateItemForm />}
         </div>
       </main>
     </>

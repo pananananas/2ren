@@ -27,17 +27,17 @@ import {
 const CreateItem = () => {
   const [name, setName] = useState("");
   const [material, setMaterial] = useState("");
-  const [category, setCategory] = useState("");
+  const [category] = useState("");
   const [description, setDescription] = useState("");
-  const [display, setDisplay] = useState(false);
-  const [price, setPrice] = useState("");
-  const [color, setColor] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [amount, setAmount] = useState("");
+  const [display] = useState(false);
+  const [price] = useState("");
+  const [color] = useState("");
+  const [currency] = useState("");
+  const [amount] = useState("");
 
   const ctx = api.useUtils();
 
-  const { mutate, isLoading: isCreating } = api.items.create.useMutation({
+  const { mutate } = api.items.create.useMutation({
     onSuccess: () => {
       void ctx.items.getAll.invalidate();
       //   setName("");
