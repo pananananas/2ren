@@ -33,6 +33,7 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "../ui/dialog";
+import ImageDropzone from "./image-dropzone";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -45,6 +46,7 @@ const formSchema = z.object({
   color: z.string(),
   currency: z.string(),
   amount: z.string(),
+  image: z.string(),
 });
 
 export function CreateItemForm() {
@@ -60,6 +62,7 @@ export function CreateItemForm() {
       color: "",
       currency: "zł",
       amount: "",
+      image: "",
     },
   });
 
@@ -75,6 +78,10 @@ export function CreateItemForm() {
     mutate(values);
   });
 
+  const handleFileUpload = (file: File) => {
+    form.setValue("image", file.name);
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -88,6 +95,7 @@ export function CreateItemForm() {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-2">
+            <ImageDropzone onFileUploaded={handleFileUpload} />
             <FormField
               control={form.control}
               name="name"

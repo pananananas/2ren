@@ -22,7 +22,7 @@ model Item {
   description String   @db.VarChar(255)
   authorID    String
   display     Boolean  @default(false)
-  // image
+  image       String   @db.VarChar(255) @default("")
 
   @@index([material])
 }

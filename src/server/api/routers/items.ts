@@ -53,6 +53,7 @@ export const itemsRouter = createTRPCRouter({
         amount: z.string().max(280),
         display: z.boolean(),
         description: z.string().min(0).max(1000),
+        image: z.string().max(280),
       }),
     )
     .mutation(async ({ ctx, input }) => {

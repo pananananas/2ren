@@ -34,6 +34,7 @@ const CreateItem = () => {
   const [color] = useState("");
   const [currency] = useState("");
   const [amount] = useState("");
+  const [image] = useState("");
 
   const ctx = api.useUtils();
 
@@ -63,6 +64,7 @@ const CreateItem = () => {
       color,
       currency,
       amount,
+      image,
     });
   };
 
