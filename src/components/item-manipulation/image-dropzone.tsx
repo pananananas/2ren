@@ -1,39 +1,21 @@
-import React, { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { UploadDropzone } from "~/utils/uploadthing";
 
-// Define the props type for ImageDropzone
-type ImageDropzoneProps = {
-  onFileUploaded: (file: File) => void;
-};
-
-const ImageDropzone: React.FC<ImageDropzoneProps> = ({ onFileUploaded }) => {
-  // Explicitly set the type of the state
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      // Assuming you only need the first file
-      const file = acceptedFiles[0];
-      if (!file) return;
-      setSelectedFile(file);
-      onFileUploaded(file); // No need to check if onFileUploaded exists because it's required by the type
-    },
-    [onFileUploaded],
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
-
+export default function ImageDropzone() {
   return (
-    <div {...getRootProps()} className="dropzone">
-      <input {...getInputProps()} />
-      {isDragActive ? (
-        <p>Drop the files here ...</p>
-      ) : (
-        <p>Drag and drop some files here, or click to select files</p>
-      )}
-      {selectedFile && <p>Selected file: {selectedFile.name}</p>}
+    <div>
+      <UploadDropzone
+        className="ut-label:text-m ut-allowed-content:ut-uploading:text-red-300"
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          // alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
     </div>
   );
-};
-
-export default ImageDropzone;
+}

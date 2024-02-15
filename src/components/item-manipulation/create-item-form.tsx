@@ -95,46 +95,52 @@ export function CreateItemForm() {
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-2">
-            <ImageDropzone onFileUploaded={handleFileUpload} />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter material type" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Oryginał">Oryginał</SelectItem>
-                      <SelectItem value="Regranulat">Regranulat</SelectItem>
-                      <SelectItem value="Przemiał">Przemiał</SelectItem>
-                      <SelectItem value="Odpad">Odpad</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="flex w-full gap-4">
+              <div className="w-1/2">
+                <ImageDropzone />
+              </div>
+              <div className="w-1/2">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter material type" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Oryginał">Oryginał</SelectItem>
+                          <SelectItem value="Regranulat">Regranulat</SelectItem>
+                          <SelectItem value="Przemiał">Przemiał</SelectItem>
+                          <SelectItem value="Odpad">Odpad</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
             <div className="flex w-full gap-4">
               <div className="w-2/3">
                 <FormField
