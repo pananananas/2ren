@@ -116,13 +116,12 @@ export const columns: ColumnDef<ItemTable>[] = [
     cell: ({ row }) => {
       const item = row.original;
       const ctx = api.useUtils();
-      const { mutate: deleteItem, isLoading: isDeleting } =
-        api.items.delete.useMutation({
-          onSuccess: () => {
-            // Invalidate and refetch the items list
-            void ctx.items.getAll.invalidate();
-          },
-        });
+      const { mutate: deleteItem } = api.items.delete.useMutation({
+        onSuccess: () => {
+          // Invalidate and refetch the items list
+          void ctx.items.getAll.invalidate();
+        },
+      });
       const handleDelete = () => {
         // Call the delete mutation
         deleteItem(item.id);
@@ -144,7 +143,9 @@ export const columns: ColumnDef<ItemTable>[] = [
               Copy material
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit item</DropdownMenuItem>
+            <DropdownMenuItem>
+              Edit item
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={handleDelete}>
               <span className="text-red-600">Delete item</span>
             </DropdownMenuItem>

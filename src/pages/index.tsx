@@ -1,10 +1,11 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { api } from "~/utils/api";
 import Head from "next/head";
-import { CreateItem } from "~/components/create-item";
-import { ModeToggle } from "~/components/theme-provider";
+import { CreateItem } from "~/components/item-manipulation/create-item";
+// import { ModeToggle } from "~/components/theme-provider";
 import { LoadingPage } from "~/components/loading";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
+import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
 
 const Content = () => {
   const { data, isLoading } = api.items.getAll.useQuery();
@@ -27,7 +28,7 @@ const Content = () => {
 export default function Home() {
   api.items.getAll.useQuery(); // pre-fetch items immidiately
 
-  const { user, isLoaded: userLoaded, isSignedIn } = useUser();
+  const { isLoaded: userLoaded, isSignedIn } = useUser();
 
   if (!userLoaded) return <LoadingPage />;
 
@@ -52,6 +53,7 @@ export default function Home() {
           {/* <ModeToggle /> */}
           <ItemsTable />
           {!!isSignedIn && <CreateItem />}
+          <CreateItemForm/>
         </div>
       </main>
     </>

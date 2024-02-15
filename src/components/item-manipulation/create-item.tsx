@@ -1,3 +1,11 @@
+import React from "react";
+import { useState } from "react";
+import { api } from "~/utils/api";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
+import { Switch } from "../ui/switch";
 import {
   Dialog,
   DialogClose,
@@ -7,15 +15,14 @@ import {
   DialogTitle,
   DialogFooter,
   DialogTrigger,
-} from "./ui/dialog";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
-import { Switch } from "./ui/switch";
-import { string } from "zod";
-import { useState } from "react";
-import { api } from "~/utils/api";
+} from "../ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const CreateItem = () => {
   const [name, setName] = useState("");
@@ -28,22 +35,21 @@ const CreateItem = () => {
   const [currency, setCurrency] = useState("");
   const [amount, setAmount] = useState("");
 
-const ctx = api.useUtils();
+  const ctx = api.useUtils();
 
   const { mutate, isLoading: isCreating } = api.items.create.useMutation({
     onSuccess: () => {
       void ctx.items.getAll.invalidate();
-    //   setName("");
-    //   setMaterial("");
-    //   setCategory("");
-    //   setDescription("");
-    //   setDisplay(false);
-    //   setPrice("");
-    //   setColor("");
-    //   setCurrency("");
-    //   setAmount("");
-
-    }
+      //   setName("");
+      //   setMaterial("");
+      //   setCategory("");
+      //   setDescription("");
+      //   setDisplay(false);
+      //   setPrice("");
+      //   setColor("");
+      //   setCurrency("");
+      //   setAmount("");
+    },
   });
 
   const handleSave = () => {
@@ -102,14 +108,25 @@ const ctx = api.useUtils();
             <Label htmlFor="category" className="text-left">
               Category
             </Label>
-            <Input
+            {/* <Input
               name=""
               id="category"
               placeholder="Choose category"
               className="text-grey-200 col-span-3"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-            />
+            /> */}
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Oryginał">Oryginał</SelectItem>
+                <SelectItem value="Regranulat">Regranulat</SelectItem>
+                <SelectItem value="Przemiał">Przemiał</SelectItem>
+                <SelectItem value="Odpad">Odpad</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="items-center gap-4">
             <Label htmlFor="name" className="text-left">
@@ -123,7 +140,7 @@ const ctx = api.useUtils();
           </div>
           <div className="flex items-center space-x-2">
             <Switch
-              id="display-item"     // not working TODO: fix
+              id="display-item" // not working TODO: fix
               // checked={display}
               // onChange={(e) => setDisplay(e.target.checked)}
             />
@@ -133,11 +150,11 @@ const ctx = api.useUtils();
         <DialogFooter className="">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              Close
+              Cancel
             </Button>
           </DialogClose>
           <Button type="submit" onClick={handleSave}>
-            Save
+            Add item
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -46,7 +46,7 @@ export const itemsRouter = createTRPCRouter({
       z.object({
         name: z.string().min(1).max(280),
         color: z.string().max(100),
-        material: z.string().min(1).max(280),
+        material: z.string().max(280),
         category: z.string().min(1).max(280),
         price: z.string().max(280),
         currency: z.string().max(280),
@@ -81,4 +81,32 @@ export const itemsRouter = createTRPCRouter({
 
       return item;
     }),
+  // edit: privateProcedure
+  //   .input(
+  //     z.object({
+  //       id: z.number(),
+  //       name: z.string().min(1).max(280),
+  //       color: z.string().max(100),
+  //       material: z.string().min(1).max(280),
+  //       category: z.string().min(1).max(280),
+  //       price: z.string().max(280),
+  //       currency: z.string().max(280),
+  //       amount: z.string().max(280),
+  //       display: z.boolean(),
+  //       description: z.string().min(0).max(1000),
+  //     }),
+  //   )
+  //   .mutation(async ({ ctx, input }) => {
+  //     const authorID = ctx.userId;
+
+  //     const item = await ctx.db.item.updateMany({
+  //       where: {
+  //         id: input.id,
+  //         authorID: authorID,
+  //       },
+  //       data: input,
+  //     });
+
+  //     return item;
+  //   }),
 });
