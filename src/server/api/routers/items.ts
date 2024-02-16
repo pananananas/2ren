@@ -53,21 +53,50 @@ export const itemsRouter = createTRPCRouter({
         amount: z.string().max(280),
         display: z.boolean(),
         description: z.string().min(0).max(1000),
-        image: z.string().max(280),
+        images: z.array(
+          z.object({
+            // Expect an array of objects for images
+            imageUrl: z.string().max(1000),
+            key: z.string().max(1000),
+          }),
+        ),
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      const { images, ...itemData } = input;
       const authorID = ctx.userId;
 
       const item = await ctx.db.item.create({
         data: {
           authorID: authorID,
-          ...input,
+          ...itemData,
         },
       });
+      //  if images array is empty, return the item
+      if (images.length === 0) {
+        return item;
+      }
+
+
+      // Create ItemImage records for each image
+      const imageRecords = images.map((imageData) => ({
+        imageUrl: imageData.imageUrl,
+        key: imageData.key,
+        itemId: item.id,
+      }));
+
+      // Use Promise.all for concurrent creation of item image records
+      await Promise.all(
+        imageRecords.map((imgData) =>
+          ctx.db.itemImage.create({
+            data: imgData,
+          })
+        )
+      );
 
       return item;
     }),
+
   delete: privateProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
@@ -82,32 +111,4 @@ export const itemsRouter = createTRPCRouter({
 
       return item;
     }),
-  // edit: privateProcedure
-  //   .input(
-  //     z.object({
-  //       id: z.number(),
-  //       name: z.string().min(1).max(280),
-  //       color: z.string().max(100),
-  //       material: z.string().min(1).max(280),
-  //       category: z.string().min(1).max(280),
-  //       price: z.string().max(280),
-  //       currency: z.string().max(280),
-  //       amount: z.string().max(280),
-  //       display: z.boolean(),
-  //       description: z.string().min(0).max(1000),
-  //     }),
-  //   )
-  //   .mutation(async ({ ctx, input }) => {
-  //     const authorID = ctx.userId;
-
-  //     const item = await ctx.db.item.updateMany({
-  //       where: {
-  //         id: input.id,
-  //         authorID: authorID,
-  //       },
-  //       data: input,
-  //     });
-
-  //     return item;
-  //   }),
 });

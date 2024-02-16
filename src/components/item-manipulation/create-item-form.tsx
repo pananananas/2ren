@@ -46,7 +46,12 @@ const formSchema = z.object({
   color: z.string(),
   currency: z.string(),
   amount: z.string(),
-  image: z.string(),
+  images: z.array(
+    z.object({
+      imageUrl: z.string().max(1000),
+      key: z.string().max(1000),
+    })
+  ),
 });
 
 export function CreateItemForm() {
@@ -62,7 +67,20 @@ export function CreateItemForm() {
       color: "",
       currency: "zł",
       amount: "",
-      image: "",
+      images: [
+        {
+          imageUrl: "testUrl1",
+          key: "testKey1",
+        },
+        {
+          imageUrl: "testUrl2",
+          key: "testKey2",
+        },
+        {
+          imageUrl: "testUrl3",
+          key: "testKey3",
+        },
+      ],
     },
   });
 
@@ -75,12 +93,13 @@ export function CreateItemForm() {
 
   const onSubmit = form.handleSubmit((values) => {
     // This function will only be called if the form is valid
+    console.log("Form values", values);
     mutate(values);
   });
 
-  const handleFileUpload = (file: File) => {
-    form.setValue("image", file.name);
-  };
+  // const handleFileUpload = (file: File) => {
+  //   // form.setValue("images");
+  // };
 
   return (
     <Dialog>

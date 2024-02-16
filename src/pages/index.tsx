@@ -29,6 +29,8 @@ export default function Home() {
 
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
+  console.log("images data", api.itemImages.getAll.useQuery());
+
   if (!userLoaded) return <LoadingPage />;
 
   // console.log(user)
@@ -49,7 +51,7 @@ export default function Home() {
           <span className="text-3xl font-bold">Available products</span>
           <Content />
           <ImageDropzone />
-          
+
           {/* <ModeToggle /> */}
           <ItemsTable />
           {!!isSignedIn && <CreateItemForm />}

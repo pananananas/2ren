@@ -30,7 +30,6 @@ const itemTableSchema = z.object({
   description: z.string(),
   authorID: z.string(),
   display: z.boolean(),
-  image: z.string(),
 });
 
 export type ItemTable = z.infer<typeof itemTableSchema>;
@@ -111,10 +110,6 @@ export const columns: ColumnDef<ItemTable>[] = [
   {
     accessorKey: "display",
     header: "Display",
-  },
-  {
-    accessorKey: "image",
-    header: "Image",
   },
   {
     id: "actions",
