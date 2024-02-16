@@ -3,6 +3,7 @@ import { api } from "~/utils/api";
 import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
+import ItemCard from "~/components/item-card";
 // import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
 // import ImageDropzone from "~/components/item-manipulation/image-dropzone";
 
@@ -47,12 +48,12 @@ export default function Home() {
           <div>
             {!isSignedIn && (
               <div>
-                <SignInButton /> <Content />{" "}
+                <SignInButton />{" "}
               </div>
             )}
             {!!isSignedIn && <SignOutButton />}
           </div>
-
+          <ItemCard />
           {!!isSignedIn && (
             <div>
               <span className="text-3xl font-bold">Available products</span>
