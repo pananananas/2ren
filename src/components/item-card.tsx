@@ -35,10 +35,10 @@ export default function ItemCard() {
       {data.map(({ item }) => (
         <div key={item.id} className="">
           <Card className="w-[170px]">
-            {imagesData[item.id] && (
+            {imagesData[9] && (
                 console.log("imagesData", imagesData),
                 <Image
-                  src={imagesData[item.id].imageUrl}
+                  src={imagesData[9].imageUrl}
                   alt=""
                   width={170}
                   height={130}
