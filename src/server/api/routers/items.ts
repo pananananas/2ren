@@ -1,5 +1,6 @@
-import { clerkClient } from "@clerk/nextjs";
 import type { User } from "@clerk/nextjs/server";
+import { utapi } from "~/server/uploadthing";
+import { clerkClient } from "@clerk/nextjs";
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -77,7 +78,6 @@ export const itemsRouter = createTRPCRouter({
         return item;
       }
 
-
       // Create ItemImage records for each image
       const imageRecords = images.map((imageData) => ({
         imageUrl: imageData.imageUrl,
@@ -90,8 +90,8 @@ export const itemsRouter = createTRPCRouter({
         imageRecords.map((imgData) =>
           ctx.db.itemImage.create({
             data: imgData,
-          })
-        )
+          }),
+        ),
       );
 
       return item;
@@ -102,7 +102,22 @@ export const itemsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const authorID = ctx.userId;
 
-      
+      const itemImages = await ctx.db.itemImage.findMany({
+        where: {
+          itemId: input,
+        },
+      });
+
+      await Promise.all(
+        itemImages.map(async (itemImage) => {
+          await utapi.deleteFiles(itemImage.key);
+          return ctx.db.itemImage.delete({
+            where: {
+              id: itemImage.id,
+            },
+          });
+        }),
+      );
 
       const item = await ctx.db.item.deleteMany({
         where: {
