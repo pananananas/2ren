@@ -34,7 +34,6 @@ import {
   DialogFooter,
   DialogTrigger,
 } from "../ui/dialog";
-import ImageDropzone from "./image-dropzone";
 
 // Define the form schema using Zod
 const formSchema = z.object({
@@ -104,14 +103,10 @@ export function CreateItemForm() {
           <form onSubmit={onSubmit} className="space-y-2">
             <div className="flex w-full gap-4">
               <div className="w-1/2">
-                {/* <ImageDropzone /> */}
                 <UploadDropzone
                   className="ut-label:text-m p-3 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {
-                    // Do something with the response
-                    console.log("Files: ", res);
-                    // form.setValue("images", res);
                     res.forEach((file) => {
                       form.setValue("images", [
                         ...form.getValues("images"),
@@ -121,11 +116,9 @@ export function CreateItemForm() {
                         },
                       ]);
                     });
-
                     alert("Image uploaded successfully!");
                   }}
                   onUploadError={(error: Error) => {
-                    // Do something with the error.
                     alert(`ERROR! ${error.message}`);
                   }}
                 />
