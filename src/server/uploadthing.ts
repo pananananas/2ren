@@ -5,7 +5,7 @@ export const utapi = new UTApi();
 const f = createUploadthing();
 
 export const ourFileRouter = {
-  imageUploader: f({ image: { maxFileSize: "16MB" } }).onUploadComplete(
+  imageUploader: f({ image: { maxFileSize: "16MB", maxFileCount: 4 } }).onUploadComplete(
     async ({ file }) => {
       console.log("file url", file.url);
       return {};

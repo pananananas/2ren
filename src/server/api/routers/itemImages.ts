@@ -1,12 +1,10 @@
-// import { utapi } from "~/server/uploadthing";
+import { utapi } from "~/server/uploadthing";
 import { z } from "zod";
 import {
   createTRPCRouter,
   privateProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-
-
 
 export const itemImagesRouter = createTRPCRouter({
   create: privateProcedure
@@ -35,4 +33,24 @@ export const itemImagesRouter = createTRPCRouter({
 
     return itemImages;
   }),
+
+  deleteImage: privateProcedure
+    .input(
+      z.object({
+        key: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      await utapi.deleteFiles(input.key);
+      console.log("deleted from uploadthing");
+
+      // Delete the ItemImage record from the database
+      const deleteResult = await ctx.db.itemImage.deleteMany({
+        where: {
+          key: input.key,
+        },
+      });
+
+      return deleteResult;
+    }),
 });

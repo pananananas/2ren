@@ -3,8 +3,8 @@ import { api } from "~/utils/api";
 import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
-import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
-import ImageDropzone from "~/components/item-manipulation/image-dropzone";
+// import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
+// import ImageDropzone from "~/components/item-manipulation/image-dropzone";
 
 const Content = () => {
   const { data, isLoading } = api.items.getAll.useQuery();
@@ -29,7 +29,7 @@ export default function Home() {
 
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
-  console.log("images data", api.itemImages.getAll.useQuery());
+  // console.log("images data", api.itemImages.getAll.useQuery());
 
   if (!userLoaded) return <LoadingPage />;
 
@@ -45,16 +45,20 @@ export default function Home() {
       <main className="flex h-screen justify-center">
         <div className="flex h-full w-full flex-col gap-2  p-4 md:w-2/3">
           <div>
-            {!isSignedIn && <SignInButton />}
+            {!isSignedIn && (
+              <div>
+                <SignInButton /> <Content />{" "}
+              </div>
+            )}
             {!!isSignedIn && <SignOutButton />}
           </div>
-          <span className="text-3xl font-bold">Available products</span>
-          <Content />
-          <ImageDropzone />
 
-          {/* <ModeToggle /> */}
-          <ItemsTable />
-          {!!isSignedIn && <CreateItemForm />}
+          {!!isSignedIn && (
+            <div>
+              <span className="text-3xl font-bold">Available products</span>
+              <ItemsTable />
+            </div>
+          )}
         </div>
       </main>
     </>

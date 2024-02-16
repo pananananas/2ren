@@ -1,5 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { UploadDropzone } from "~/utils/uploadthing";
 import { useForm } from "react-hook-form";
 import { api } from "~/utils/api";
 import { z } from "zod";
@@ -50,7 +51,7 @@ const formSchema = z.object({
     z.object({
       imageUrl: z.string().max(1000),
       key: z.string().max(1000),
-    })
+    }),
   ),
 });
 
@@ -67,20 +68,7 @@ export function CreateItemForm() {
       color: "",
       currency: "zł",
       amount: "",
-      images: [
-        {
-          imageUrl: "testUrl1",
-          key: "testKey1",
-        },
-        {
-          imageUrl: "testUrl2",
-          key: "testKey2",
-        },
-        {
-          imageUrl: "testUrl3",
-          key: "testKey3",
-        },
-      ],
+      images: [],
     },
   });
 
@@ -116,7 +104,31 @@ export function CreateItemForm() {
           <form onSubmit={onSubmit} className="space-y-2">
             <div className="flex w-full gap-4">
               <div className="w-1/2">
-                <ImageDropzone />
+                {/* <ImageDropzone /> */}
+                <UploadDropzone
+                  className="ut-label:text-m p-3 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+                  endpoint="imageUploader"
+                  onClientUploadComplete={(res) => {
+                    // Do something with the response
+                    console.log("Files: ", res);
+                    // form.setValue("images", res);
+                    res.forEach((file) => {
+                      form.setValue("images", [
+                        ...form.getValues("images"),
+                        {
+                          imageUrl: file.url,
+                          key: file.key,
+                        },
+                      ]);
+                    });
+
+                    alert("Image uploaded successfully!");
+                  }}
+                  onUploadError={(error: Error) => {
+                    // Do something with the error.
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                />
               </div>
               <div className="w-1/2">
                 <FormField

@@ -102,6 +102,8 @@ export const itemsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const authorID = ctx.userId;
 
+      
+
       const item = await ctx.db.item.deleteMany({
         where: {
           id: input,
