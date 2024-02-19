@@ -1,7 +1,10 @@
+import Image from "next/image";
 import * as React from "react";
-import { useState } from "react";
+// import { useState } from "react";
+import { Badge } from "~/components/ui/badge";
 import { useRouter } from "next/router";
 import { Button } from "~/components/ui/button";
+import { type ItemCardProps } from "~/types/itemCardProps"; // Import the interface
 import {
   Drawer,
   DrawerClose,
@@ -13,9 +16,9 @@ import {
   DrawerTrigger,
 } from "~/components/ui/drawer";
 
-export default function ItemDrawer({ itemId }: { itemId: number }) {
+export const ItemDrawer = ({ item, itemImages }: ItemCardProps) => {
   const router = useRouter();
-  const [drawerVisible, setDrawerVisible] = useState(false);
+  // const [drawerVisible, setDrawerVisible] = useState(false);
   const openDrawer = (itemId: number) => {
     // Update the current URL without navigating away
     void router.push(
@@ -36,38 +39,68 @@ export default function ItemDrawer({ itemId }: { itemId: number }) {
       undefined,
       { shallow: true },
     );
-    setDrawerVisible(false);
   };
 
-  console.log("itemId", itemId);
+  console.log("itemId", item.id);
   return (
-    <Drawer shouldScaleBackground={true}>
+    <Drawer
+      shouldScaleBackground={true}
+      onClose={() => closeDrawer()}
+      preventScrollRestoration={true}
+      closeThreshold={20}
+    >
       <DrawerTrigger asChild>
         <Button
           className="w-full"
           size={"xsm"}
-          onClick={() => openDrawer(itemId)}
+          onClick={() => openDrawer(item.id)}
         >
           More info
         </Button>
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
+          {itemImages.length > 0 && (
+            <div className=" w-full rounded-[5px]">
+              <Image
+                src={itemImages[0]?.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
+                alt={item.name}
+                width={384}
+                height={130}
+                className="rounded-[5px] object-cover"
+              />
+            </div>
+          )}
           <DrawerHeader>
-            <DrawerTitle>{itemId}</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+            <div className=" flex w-full justify-items-start">
+              <div>
+                <DrawerTitle>{item.name}</DrawerTitle>
+                <DrawerDescription>{item.category}.</DrawerDescription>
+              </div>
+              <div className="right-0 top-0 z-10 justify-self-end">
+                <div className="flex gap-1">
+                  {item.price && (
+                    <Badge>
+                      {item.price}
+                      {item.currency}/kg
+                    </Badge>
+                  )}
+                  {item.amount && <Badge>{item.amount}kg</Badge>}
+                </div>
+              </div>
+            </div>
+            <DrawerDescription>{item.description}</DrawerDescription>
           </DrawerHeader>
-
           <DrawerFooter>
-            <Button>Submit</Button>
-            <DrawerClose asChild onChange={() => closeDrawer()}>
-              <Button variant="outline" onClick={() => closeDrawer()}>
-                Cancel
-              </Button>
-            </DrawerClose>
+            <div className="flex w-full gap-4">
+              <DrawerClose asChild className="w-1/3">
+                <Button variant="outline">Close</Button>
+              </DrawerClose>
+              <Button className="w-2/3">Contact</Button>
+            </div>
           </DrawerFooter>
         </div>
       </DrawerContent>
     </Drawer>
   );
-}
+};

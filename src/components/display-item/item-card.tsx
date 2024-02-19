@@ -1,33 +1,8 @@
-// ItemCard.tsx
 import Image from "next/image";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardDescription, CardTitle } from "../ui/card";
-import ItemDrawer from "~/components/display-item/item-drawer";
-
-interface ItemCardProps {
-  item: {
-    id: number;
-    name: string;
-    createdAt: Date;
-    updatedAt: Date;
-    color: string;
-    price: string;
-    currency: string;
-    amount: string;
-    category: string;
-    material: string;
-    description: string;
-    authorID: string;
-    display: boolean;
-  };
-  itemImages: {
-    id: number;
-    key: string;
-    imageUrl: string;
-    itemId: number;
-  }[];
-  selectedItemId: number | null;
-}
+import { ItemDrawer } from "./item-drawer";
+import { type ItemCardProps } from "~/types/itemCardProps"; // Import the interface
 
 export const ItemCard = ({
   item,
@@ -36,7 +11,11 @@ export const ItemCard = ({
 }: ItemCardProps) => {
   return (
     <div key={item.id} className="gap-5">
-      <Card className="w-[170px] p-[10px] lg:w-[180px]">
+      <Card
+        className={`w-[170px] p-[10px] lg:w-[180px] ${
+          selectedItemId === item.id ? "border-2 border-teal-600" : ""
+        }`}
+      >
         {/* Display the first image for this item, if available */}
         {itemImages.length > 0 && (
           <div className="relative h-[130px] w-full rounded-[5px]">
@@ -85,7 +64,12 @@ export const ItemCard = ({
           <CardTitle className="text-base">{item.name}</CardTitle>
           <CardDescription>{item.category}</CardDescription>
         </div>
-        <ItemDrawer itemId={item.id} />
+        <ItemDrawer
+          key={item.id}
+          item={item}
+          itemImages={itemImages}
+          selectedItemId={selectedItemId}
+        />
       </Card>
     </div>
   );
