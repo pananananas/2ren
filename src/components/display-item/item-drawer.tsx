@@ -61,7 +61,7 @@ export const ItemDrawer = ({ item, itemImages }: ItemCardProps) => {
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           {itemImages.length > 0 && (
-            <div className=" w-full rounded-[5px]">
+            <div className=" w-4/5 pt-6 p-2 rounded-[5px]">
               <Image
                 src={itemImages[0]?.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
                 alt={item.name}
