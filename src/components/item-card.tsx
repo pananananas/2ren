@@ -15,7 +15,7 @@ export default function ItemCard() {
   if (!itemData) return <div>No data</div>;
   if (imagesLoading) return <LoadingPage />;
   if (!imagesData) return <div>No images data</div>;
-
+  //   console.log("imagesData", imagesData);
   return (
     <div className="flex">
       {itemData.map(({ item }) => {
@@ -29,7 +29,7 @@ export default function ItemCard() {
             <Card className="w-[170px] p-2.5">
               {/* Display the first image for this item, if available */}
               {itemImages.length > 0 && (
-                <div className="h-[130px] w-[150px] rounded-[5px]">
+                <div className="relative h-[130px] w-[150px] rounded-[5px]">
                   <Image
                     src={
                       itemImages[0]?.imageUrl ?? "/path/to/default/image.png"
@@ -39,18 +39,32 @@ export default function ItemCard() {
                     height={130}
                     className="h-[130px] w-[150px] rounded-[5px] object-cover"
                   />
+                  <div className="absolute bottom-0 right-0 z-10 p-[5px]">
+                    <div className="flex gap-1">
+                      {item.price && (
+                        <Badge variant={"transparent"}>{item.price}{item.currency}/kg</Badge>
+                      )}
+                      {item.amount && (
+                        <Badge variant={"transparent"}>{item.amount}kg</Badge>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
-              <div className="flex gap-1">
-                {item.price && <Badge>{item.price}zł/kg</Badge>}
-                {item.amount && <Badge>{item.amount}kg</Badge>}
-              </div>
-              <div className="p-[5px]">
+              <div className="mb-1 w-full p-[5px]">
                 <CardTitle className="text-base">{item.name}</CardTitle>
                 <CardDescription>{item.category}</CardDescription>
               </div>
-              <Button className="h-6 w-full text-sm" size={null}>
+              {itemImages.length === 0 && (
+                <div className="mb-2 flex justify-end">
+                  <div className="flex gap-1">
+                    {item.price && <Badge>{item.price}{item.currency}/kg</Badge>}
+                    {item.amount && <Badge>{item.amount}kg</Badge>}
+                  </div>
+                </div>
+              )}
+              <Button className="w-full" size={"xsm"}>
                 More info
               </Button>
             </Card>
