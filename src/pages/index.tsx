@@ -22,7 +22,7 @@ export default function Home() {
         <link rel="stylesheet" href="https://use.typekit.net/tzu8wjs.css" />
       </Head>
       <main className="flex h-screen justify-center">
-        <div className="flex h-full w-full flex-col gap-2  p-4 md:w-2/3">
+        <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">
           <div className="absolute bottom-0 left-0 p-[5px] ">
             {!isSignedIn && (
               <div>
@@ -31,8 +31,7 @@ export default function Home() {
             )}
             {!!isSignedIn && <SignOutButton />}
           </div>
-
-          <span className="pb-5 pt-32 text-3xl font-bold">
+          <span className="pb-3 pt-20 text-3xl font-bold md:pb-5 md:pt-32">
             Available products
           </span>
 

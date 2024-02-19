@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { api } from "~/utils/api";
-import { Button } from "./ui/button";
 import { Badge } from "~/components/ui/badge";
+import ItemDrawer from "~/components/item-drawer";
 import { LoadingPage } from "~/components/loading";
 import { Card, CardDescription, CardTitle } from "./ui/card";
 
@@ -16,8 +16,9 @@ export default function ItemCard() {
   if (imagesLoading) return <LoadingPage />;
   if (!imagesData) return <div>No images data</div>;
   //   console.log("imagesData", imagesData);
+
   return (
-    <div className="flex flex-wrap  md:gap-5 gap-4 justify-start">
+    <div className="flex flex-wrap place-content-center justify-start gap-4 md:gap-5">
       {itemData.map(({ item }) => {
         if (!item.display) return null; // Render item only if item.display is true
         const itemImages = imagesData.filter(
@@ -26,10 +27,10 @@ export default function ItemCard() {
         );
         return (
           <div key={item.id} className="gap-5">
-            <Card className="w-[170px] p-2.5">
+            <Card className="w-[170px] p-[10px] lg:w-[180px]">
               {/* Display the first image for this item, if available */}
               {itemImages.length > 0 && (
-                <div className="relative h-[130px] w-[150px] rounded-[5px]">
+                <div className="relative h-[130px] w-full rounded-[5px]">
                   <Image
                     src={
                       itemImages[0]?.imageUrl ?? "/path/to/default/image.png"
@@ -37,12 +38,33 @@ export default function ItemCard() {
                     alt={item.name}
                     width={150}
                     height={130}
-                    className="h-[130px] w-[150px] rounded-[5px] object-cover"
+                    className="h-[130px] w-[190px] rounded-[5px] object-cover"
                   />
                   <div className="absolute bottom-0 right-0 z-10 p-[5px]">
                     <div className="flex gap-1">
                       {item.price && (
-                        <Badge variant={"transparent"}>{item.price}{item.currency}/kg</Badge>
+                        <Badge variant={"transparent"}>
+                          {item.price}
+                          {item.currency}/kg
+                        </Badge>
+                      )}
+                      {item.amount && (
+                        <Badge variant={"transparent"}>{item.amount}kg</Badge>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+              {itemImages.length === 0 && (
+                // <div className="mb-2 flex justify-end">
+                <div className="relative h-[130px] w-full rounded-[5px] bg-gradient-to-tr from-indigo-400 via-purple-400 to-pink-400">
+                  <div className="absolute bottom-0 right-0 z-10 p-[5px]">
+                    <div className="flex gap-1">
+                      {item.price && (
+                        <Badge variant={"transparent"}>
+                          {item.price}
+                          {item.currency}/kg
+                        </Badge>
                       )}
                       {item.amount && (
                         <Badge variant={"transparent"}>{item.amount}kg</Badge>
@@ -56,17 +78,7 @@ export default function ItemCard() {
                 <CardTitle className="text-base">{item.name}</CardTitle>
                 <CardDescription>{item.category}</CardDescription>
               </div>
-              {itemImages.length === 0 && (
-                <div className="mb-2 flex justify-end">
-                  <div className="flex gap-1">
-                    {item.price && <Badge>{item.price}{item.currency}/kg</Badge>}
-                    {item.amount && <Badge>{item.amount}kg</Badge>}
-                  </div>
-                </div>
-              )}
-              <Button className="w-full" size={"xsm"}>
-                More info
-              </Button>
+              <ItemDrawer />
             </Card>
           </div>
         );
