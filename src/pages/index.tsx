@@ -23,12 +23,8 @@ export default function Home() {
       </Head>
       <main className="flex h-screen justify-center">
         <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">
-          <div className="absolute bottom-0 left-0 p-[5px] ">
-            {!isSignedIn && (
-              <div>
-                <SignInButton />{" "}
-              </div>
-            )}
+          <div className="absolute left-0 top-0 p-[5px] ">
+            {!isSignedIn && <SignInButton />}
             {!!isSignedIn && <SignOutButton />}
           </div>
           <span className="pb-3 pt-20 text-3xl font-bold md:pb-5 md:pt-32">

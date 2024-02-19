@@ -61,24 +61,24 @@ export const ItemDrawer = ({ item, itemImages }: ItemCardProps) => {
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           {itemImages.length > 0 && (
-            <div className=" w-4/5 pt-6 p-2 rounded-[5px]">
+            <div className=" w-full pt-6 p-2 rounded-[5px]">
               <Image
                 src={itemImages[0]?.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
                 alt={item.name}
                 width={384}
                 height={130}
-                className="rounded-[5px] object-cover"
+                className="rounded-[5px] object-cover w-4/5 mx-auto"
               />
             </div>
           )}
           <DrawerHeader>
-            <div className=" flex w-full justify-items-start">
+            <div className="relative w-full">
               <div>
                 <DrawerTitle>{item.name}</DrawerTitle>
                 <DrawerDescription>{item.category}.</DrawerDescription>
               </div>
-              <div className="right-0 top-0 z-10 justify-self-end">
-                <div className="flex gap-1">
+              <div className="absolute right-0 top-0 z-10">
+                <div className="flex gap-2">
                   {item.price && (
                     <Badge>
                       {item.price}
