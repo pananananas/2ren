@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -19,10 +19,12 @@ const config = {
     },
     extend: {
       fontFamily: {
-        'rooney-sans':['rooney-sans', 'sans-serif'],  
+        "rooney-sans": ["rooney-sans", "sans-serif"],
       },
       fontSize: {
-        '3xl': '32px',
+        "3xs": "8px",
+        "2xs": "10px",
+        "3xl": "32px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -81,6 +83,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
 export default withUt(config);

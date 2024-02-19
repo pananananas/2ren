@@ -4,6 +4,7 @@ import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
 import ItemCard from "~/components/item-card";
+import { Badge } from "~/components/ui/badge";
 // import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
 // import ImageDropzone from "~/components/item-manipulation/image-dropzone";
 
