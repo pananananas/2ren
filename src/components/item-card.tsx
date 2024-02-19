@@ -17,7 +17,7 @@ export default function ItemCard() {
   if (!imagesData) return <div>No images data</div>;
   //   console.log("imagesData", imagesData);
   return (
-    <div className="flex flex-wrap  gap-4 justify-start">
+    <div className="flex flex-wrap  md:gap-5 gap-4 justify-start">
       {itemData.map(({ item }) => {
         if (!item.display) return null; // Render item only if item.display is true
         const itemImages = imagesData.filter(
