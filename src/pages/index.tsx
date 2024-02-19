@@ -1,41 +1,18 @@
 import Head from "next/head";
 import { api } from "~/utils/api";
+import ItemCard from "~/components/item-card";
 import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
-import ItemCard from "~/components/item-card";
-import { Badge } from "~/components/ui/badge";
-// import { CreateItemForm } from "~/components/item-manipulation/create-item-form";
-// import ImageDropzone from "~/components/item-manipulation/image-dropzone";
-
-const Content = () => {
-  const { data, isLoading } = api.items.getAll.useQuery();
-
-  if (isLoading) return <LoadingPage />;
-  if (!data) return <div>No data</div>;
-
-  return (
-    <div className="flex flex-col">
-      {data.map(({ item, author }) => (
-        <div key={item.id} className="">
-          {item.name} {item.price} {item.amount} {item.display}{" "}
-          {item.description} {author?.firstName} {author?.lastName}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 export default function Home() {
-  api.items.getAll.useQuery(); // pre-fetch items immidiately
+  api.items.getAll.useQuery();
+  api.itemImages.getAll.useQuery();
 
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
-  // console.log("images data", api.itemImages.getAll.useQuery());
-
   if (!userLoaded) return <LoadingPage />;
 
-  // console.log(user)
   return (
     <>
       <Head>
@@ -46,7 +23,7 @@ export default function Home() {
       </Head>
       <main className="flex h-screen justify-center">
         <div className="flex h-full w-full flex-col gap-2  p-4 md:w-2/3">
-          <div>
+          <div className="absolute bottom-0 left-0 p-[5px] ">
             {!isSignedIn && (
               <div>
                 <SignInButton />{" "}
@@ -54,13 +31,14 @@ export default function Home() {
             )}
             {!!isSignedIn && <SignOutButton />}
           </div>
+
+          <span className="pb-5 pt-32 text-3xl font-bold">
+            Available products
+          </span>
+
           <ItemCard />
-          {!!isSignedIn && (
-            <div>
-              <span className="text-3xl font-bold">Available products</span>
-              <ItemsTable />
-            </div>
-          )}
+
+          {!!isSignedIn && <ItemsTable />}
         </div>
       </main>
     </>
