@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { api } from "~/utils/api";
-import ItemCard from "~/components/item-card";
+import ItemGallery from "~/components/display-item/item-gallery";
 import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
@@ -35,7 +35,7 @@ export default function Home() {
             Available products
           </span>
 
-          <ItemCard />
+          <ItemGallery />
 
           {!!isSignedIn && <ItemsTable />}
         </div>
