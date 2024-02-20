@@ -22,30 +22,27 @@ export const ItemDisplayContents = ({ item, itemImages }: ItemCardProps) => {
   return (
     <div className="mx-auto w-full max-w-sm">
       {itemImages.length > 0 && (
-        <div className=" w-full rounded-[5px] p-2 pt-6">
-          <Carousel className="w-full">
-            <CarouselContent>
-              <CarouselItem>
-                <Image
-                  src={itemImages[0]?.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
-                  alt={item.name}
-                  width={384}
-                  height={130}
-                  className="mx-auto w-4/5 rounded-[5px] object-cover"
-                />
-              </CarouselItem>
-              <CarouselItem>
-                <Image
-                  src={itemImages[0]?.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
-                  alt={item.name}
-                  width={384}
-                  height={130}
-                  className="mx-auto w-4/5 rounded-[5px] object-cover"
-                />
-              </CarouselItem>
+        <div className=" flex w-full justify-center  p-2 pt-6">
+          <Carousel className="w-3/4 rounded-[5px]">
+            <CarouselContent className="rounded-[5px]">
+              {itemImages.map((image, index) => (
+                <CarouselItem key={index} >
+                  <Image
+                    src={image.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
+                    alt={item.name}
+                    width={384}
+                    height={130}
+                    className="mx-auto rounded-[5px] object-cover"
+                  />
+                </CarouselItem>
+              ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            {itemImages.length > 1 && (
+              <>
+                <CarouselPrevious />
+                <CarouselNext />
+              </>
+            )}
           </Carousel>
         </div>
       )}
