@@ -27,9 +27,7 @@ export default function Home() {
             {!isSignedIn && <SignInButton />}
             {!!isSignedIn && <SignOutButton />}
           </div>
-          <span className="pb-3 pt-20 text-3xl font-bold md:pb-5 md:pt-32">
-            Available products
-          </span>
+          
 
           <ItemGallery />
 

@@ -12,7 +12,6 @@ import {
 } from "~/components/ui/drawer";
 
 export const ItemDisplayContents = ({ item, itemImages }: ItemCardProps) => {
-  console.log("itemId", item.id);
   return (
     <div className="mx-auto w-full max-w-sm">
       {itemImages.length > 0 && (
@@ -30,7 +29,7 @@ export const ItemDisplayContents = ({ item, itemImages }: ItemCardProps) => {
         <div className="relative w-full">
           <div>
             <DrawerTitle>{item.name}</DrawerTitle>
-            <DrawerDescription>{item.category}.</DrawerDescription>
+            <DrawerDescription>{item.category}</DrawerDescription>
           </div>
           <div className="absolute right-0 top-0 z-10">
             <div className="flex gap-2">

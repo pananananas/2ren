@@ -12,6 +12,7 @@ export default function ItemGallery() {
   useEffect(() => {
     setSelectedItemId(itemId ? Number(itemId) : null);
   }, [itemId]);
+  console.log("selectedItemId", selectedItemId);
   const { data: itemData, isLoading: dataLoading } =
     api.items.getAll.useQuery();
   const { data: imagesData, isLoading: imagesLoading } =
@@ -24,7 +25,10 @@ export default function ItemGallery() {
   //   console.log("imagesData", imagesData);
 
   return (
-    <div className="flex flex-wrap place-content-center justify-start gap-4 md:gap-5">
+    <div className="flex flex-wrap justify-center gap-4 md:justify-start md:gap-5 ">
+      <span className=" flex w-full justify-center pb-3 pt-20 text-3xl font-bold md:w-full md:justify-start md:pb-5 md:pt-32">
+        Available products
+      </span>
       {itemData.map(({ item }) => {
         if (!item.display) return null;
         const itemImages = imagesData.filter(

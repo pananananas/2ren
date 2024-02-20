@@ -16,10 +16,7 @@ export function ItemDisplay({
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  console.log("setOpen", setOpen);  
-
   const openItemDisplay = (itemId: number) => {
-    // Update the current URL without navigating away
     void router.push(
       {
         pathname: router.pathname,
@@ -40,13 +37,23 @@ export function ItemDisplay({
     );
   };
 
+  const handleOpenChange = (newOpenState: boolean) => {
+    setOpen(newOpenState);
+    if (!newOpenState) {
+      closeItemDisplay();
+    }
+  };
+  React.useEffect(() => {
+    if (selectedItemId === item.id) setOpen(true);
+  }, [item.id, selectedItemId]);
+
   if (isDesktop) {
     return (
       <Dialog
         open={open}
-        onOpenChange={setOpen}
-        // onCloseChange={() => closeItemDisplay()}
-        // onClose={() => closeItemDisplay()}
+        // onOpenChange={setOpen}
+        onOpenChange={handleOpenChange}
+        // onClose={() => closeItemDisplay(item.id)}
       >
         <DialogTrigger asChild>
           <Button
@@ -75,9 +82,6 @@ export function ItemDisplay({
       onOpenChange={setOpen}
       onClose={() => closeItemDisplay()}
       preventScrollRestoration={true}
-      closeThreshold={20}
-      direction={"right"}
-      
     >
       <DrawerTrigger asChild>
         <Button
