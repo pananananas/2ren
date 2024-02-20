@@ -4,6 +4,7 @@ import ItemGallery from "~/components/item-display/item-gallery";
 import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
+import { ItemCreateForm } from "~/components/item-manipulation/item-create-form";
 
 export default function Home() {
   api.items.getAll.useQuery();
@@ -28,6 +29,7 @@ export default function Home() {
             {!!isSignedIn && <SignOutButton />}
           </div>
           
+          <ItemCreateForm />
 
           <ItemGallery />
 

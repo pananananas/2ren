@@ -32,7 +32,7 @@ import {
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { CreateItemForm } from "../item-manipulation/item-create-form";
+import { ItemCreateForm } from "../item-manipulation/item-create-form";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -99,7 +99,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <CreateItemForm/>
+        <ItemCreateForm/>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
