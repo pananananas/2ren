@@ -22,9 +22,9 @@ export const ItemDisplayContents = ({ item, itemImages }: ItemCardProps) => {
   return (
     <div className="mx-auto w-full max-w-sm">
       {itemImages.length > 0 && (
-        <div className=" flex w-full justify-center  p-2 pt-6">
+        <div className=" flex w-full justify-center items-center p-2 pt-6">
           <Carousel className="w-3/4 rounded-[5px]">
-            <CarouselContent className="rounded-[5px]">
+            <CarouselContent className="rounded-[5px]  items-center">
               {itemImages.map((image, index) => (
                 <CarouselItem key={index} >
                   <Image
