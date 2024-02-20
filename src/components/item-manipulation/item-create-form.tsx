@@ -46,6 +46,8 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 
+import React, { useEffect } from "react";
+
 // Define the form schema using Zod
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -82,6 +84,17 @@ export function ItemCreateForm() {
     },
   });
   const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "viewport";
+    meta.content = "width=device-width, initial-scale=1, maximum-scale=1";
+    document.head.appendChild(meta);
+
+    return () => {
+      document.head.removeChild(meta);
+    };
+  }, []);
 
   const ctx = api.useUtils();
   const { mutate } = api.items.create.useMutation({
@@ -328,9 +341,9 @@ export function ItemCreateForm() {
       <DrawerContent className="">
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-2 px-3">
-            <DrawerTitle className="px-3 py-1">Add new item</DrawerTitle>
+            {/* <DrawerTitle className="px-3 py-1">Add new item</DrawerTitle> */}
             <UploadDropzone
-              className="ut-label:text-m p-3  ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
               endpoint="imageUploader"
               onClientUploadComplete={(res) => {
                 res.forEach((file) => {
