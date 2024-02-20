@@ -326,12 +326,9 @@ export function ItemCreateForm() {
       </DrawerTrigger>
 
       <DrawerContent className="">
-        <DrawerHeader>
-          <DrawerTitle>Add new item</DrawerTitle>
-          <DrawerDescription>You can add new items here.</DrawerDescription>
-        </DrawerHeader>
         <Form {...form}>
-          <form onSubmit={onSubmit} className="space-y-2 p-3">
+          <form onSubmit={onSubmit} className="space-y-2 px-3">
+            <DrawerTitle className="px-3 py-1">Add new item</DrawerTitle>
             <UploadDropzone
               className="ut-label:text-m p-3  ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
               endpoint="imageUploader"
@@ -352,47 +349,51 @@ export function ItemCreateForm() {
               }}
               config={{ mode: "auto" }}
             />
-
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter material type" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Oryginał">Oryginał</SelectItem>
-                      <SelectItem value="Regranulat">Regranulat</SelectItem>
-                      <SelectItem value="Przemiał">Przemiał</SelectItem>
-                      <SelectItem value="Odpad">Odpad</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
+            <div className="flex w-full gap-4">
+              <div className="w-2/3">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter material type" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="w-1/3">
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Oryginał">Oryginał</SelectItem>
+                          <SelectItem value="Regranulat">Regranulat</SelectItem>
+                          <SelectItem value="Przemiał">Przemiał</SelectItem>
+                          <SelectItem value="Odpad">Odpad</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
             <div className="flex w-full gap-4">
               <div className="w-2/3">
                 <FormField
@@ -492,6 +493,7 @@ export function ItemCreateForm() {
                     <Textarea
                       placeholder="Description of your material"
                       {...field}
+                      className="min-h-[40px]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -520,13 +522,15 @@ export function ItemCreateForm() {
                 </FormItem>
               )}
             />
-            <DrawerFooter className="">
-              <Button type="submit">Add item</Button>
+            <DrawerFooter className="flex w-full flex-row gap-2 ">
               <DrawerClose asChild>
-                <Button type="button" variant="secondary">
+                <Button type="button" variant="secondary" className="w-1/2">
                   Close
                 </Button>
               </DrawerClose>
+              <Button type="submit" className="w-1/2">
+                Add item
+              </Button>
             </DrawerFooter>
           </form>
         </Form>
