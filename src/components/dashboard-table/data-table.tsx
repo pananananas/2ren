@@ -32,7 +32,7 @@ import {
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { CreateItemForm } from "../item-manipulation/create-item-form";
+import { CreateItemForm } from "../item-manipulation/item-create-form";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { api } from "~/utils/api";
-import ItemGallery from "~/components/display-item/item-gallery";
+import ItemGallery from "~/components/item-display/item-gallery";
 import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";

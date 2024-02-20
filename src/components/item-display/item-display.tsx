@@ -73,10 +73,11 @@ export function ItemDisplay({
     <Drawer
       open={open}
       onOpenChange={setOpen}
-      shouldScaleBackground={true}
       onClose={() => closeItemDisplay()}
       preventScrollRestoration={true}
       closeThreshold={20}
+      direction={"right"}
+      
     >
       <DrawerTrigger asChild>
         <Button
