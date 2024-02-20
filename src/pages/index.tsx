@@ -5,6 +5,7 @@ import { LoadingPage } from "~/components/loading";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemsTable from "~/components/dashboard-table/items-data-table";
 import { ItemCreateForm } from "~/components/item-manipulation/item-create-form";
+import { Button } from "~/components/ui/button";
 
 export default function Home() {
   api.items.getAll.useQuery();
@@ -25,11 +26,19 @@ export default function Home() {
       <main className="flex h-screen justify-center">
         <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">
           <div className="absolute left-0 top-0 p-[5px] ">
-            {!isSignedIn && <SignInButton />}
-            {!!isSignedIn && <SignOutButton />}
+            {!isSignedIn && (
+              <SignInButton>
+                <Button>Sign In</Button>
+              </SignInButton>
+            )}
+            {!!isSignedIn && (
+              <SignOutButton>
+                <Button>Sign Out</Button>
+              </SignOutButton>
+            )}
           </div>
-          
-          <ItemCreateForm />
+
+          {!!isSignedIn && <ItemCreateForm />}
 
           <ItemGallery />
 

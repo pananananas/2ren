@@ -34,7 +34,10 @@ export const itemsRouter = createTRPCRouter({
       })
     ).map(filterUserForCLient);
 
-    // console.log(users);  console log user info saved in the database
+    // console.log(users);  //console log user info saved in the database
+
+
+    // console.log("uploadthing files", await utapi.listFiles({ limit: 1000 }));
 
     return items.map((item) => ({
       item,
