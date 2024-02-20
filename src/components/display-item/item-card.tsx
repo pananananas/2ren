@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardDescription, CardTitle } from "../ui/card";
-import { ItemDrawer } from "./item-drawer";
 import { type ItemCardProps } from "~/types/itemCardProps"; // Import the interface
+import { ItemDisplay } from "~/components/display-item/item-display";
 
 export const ItemCard = ({
   item,
@@ -64,7 +64,7 @@ export const ItemCard = ({
           <CardTitle className="text-base">{item.name}</CardTitle>
           <CardDescription>{item.category}</CardDescription>
         </div>
-        <ItemDrawer
+        <ItemDisplay
           key={item.id}
           item={item}
           itemImages={itemImages}
