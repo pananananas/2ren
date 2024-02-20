@@ -69,6 +69,7 @@ export const ItemCard = ({
           item={item}
           itemImages={itemImages}
           selectedItemId={selectedItemId}
+          isDesktop={null}
         />
       </Card>
     </div>

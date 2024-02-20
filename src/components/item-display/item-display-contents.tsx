@@ -18,12 +18,12 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 
-export const ItemDisplayContents = ({ item, itemImages }: ItemCardProps) => {
+export const ItemDisplayContents = ({ item, itemImages, isDesktop }: ItemCardProps) => {
   return (
     <div className="mx-auto w-full max-w-sm">
       {itemImages.length > 0 && (
-        <div className=" flex w-full justify-center items-center p-2 pt-6">
-          <Carousel className="w-3/4 rounded-[5px]">
+        <div className=" flex w-full justify-center items-center p-2 pt-4">
+          <Carousel className="w-full rounded-[5px]">
             <CarouselContent className="rounded-[5px]  items-center">
               {itemImages.map((image, index) => (
                 <CarouselItem key={index} >
@@ -37,7 +37,7 @@ export const ItemDisplayContents = ({ item, itemImages }: ItemCardProps) => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            {itemImages.length > 1 && (
+            {itemImages.length > 1 && isDesktop && (
               <>
                 <CarouselPrevious />
                 <CarouselNext />

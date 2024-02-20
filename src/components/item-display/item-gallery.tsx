@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LoadingPage } from "~/components/loading";
 
-// TODO: DO ME
 
 export default function ItemGallery() {
   const router = useRouter();
@@ -43,6 +42,7 @@ export default function ItemGallery() {
             item={item}
             itemImages={itemImages}
             selectedItemId={selectedItemId}
+            isDesktop={null}
           />
         );
       })}

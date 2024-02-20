@@ -21,4 +21,5 @@ export interface ItemCardProps {
       itemId: number;
     }[];
     selectedItemId: number | null;
+    isDesktop: boolean | null;
   }

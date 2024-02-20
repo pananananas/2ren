@@ -64,12 +64,13 @@ export function ItemDisplay({
             More info
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="">
           <ItemDisplayContents
             key={item.id}
             item={item}
             itemImages={itemImages}
             selectedItemId={selectedItemId}
+            isDesktop={isDesktop}
           />
         </DialogContent>
       </Dialog>
@@ -98,6 +99,7 @@ export function ItemDisplay({
           item={item}
           itemImages={itemImages}
           selectedItemId={selectedItemId}
+          isDesktop={isDesktop}
         />
       </DrawerContent>
     </Drawer>
