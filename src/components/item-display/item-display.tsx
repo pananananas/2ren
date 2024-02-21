@@ -51,9 +51,7 @@ export function ItemDisplay({
     return (
       <Dialog
         open={open}
-        // onOpenChange={setOpen}
         onOpenChange={handleOpenChange}
-        // onClose={() => closeItemDisplay(item.id)}
       >
         <DialogTrigger asChild>
           <Button
@@ -80,7 +78,7 @@ export function ItemDisplay({
   return (
     <Drawer
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={handleOpenChange}
       onClose={() => closeItemDisplay()}
       preventScrollRestoration={true}
     >

@@ -39,10 +39,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
 
@@ -123,7 +120,7 @@ export function ItemCreateForm() {
           <Form {...form}>
             <form onSubmit={onSubmit} className="space-y-2">
               <div className="flex w-full gap-4">
-                <div className="w-1/2 md:w-full">
+                <div className="w-1/2 ">
                   <UploadDropzone
                     className="ut-label:text-m p-3  ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
                     endpoint="imageUploader"
@@ -145,7 +142,7 @@ export function ItemCreateForm() {
                     config={{ mode: "auto" }}
                   />
                 </div>
-                <div className="w-full">
+                <div className="w-full space-y-2">
                   <FormField
                     control={form.control}
                     name="name"
