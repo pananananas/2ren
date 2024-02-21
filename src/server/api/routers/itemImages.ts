@@ -1,3 +1,4 @@
+import { utapi } from "~/server/uploadthing";
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -32,4 +33,13 @@ export const itemImagesRouter = createTRPCRouter({
 
     return itemImages;
   }),
+  deleteImageFromUPT: privateProcedure
+    .input(z.string())
+    .mutation(async ({ input }) => {
+      await utapi.deleteFiles(input);
+
+      console.log("Deletion succeeded");
+
+      return;
+    }),
 });

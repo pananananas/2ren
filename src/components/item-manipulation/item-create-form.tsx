@@ -78,7 +78,12 @@ export function ItemCreateForm() {
       color: "",
       currency: "zł",
       amount: "",
-      images: [],
+      images: [
+        {
+          imageUrl: "",
+          key: "",
+        },
+      ],
     },
   });
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -116,8 +121,23 @@ export function ItemCreateForm() {
       setIsSubmitting(false);
     },
   });
+  const { mutate: deleteImage } = api.itemImages.deleteImageFromUPT.useMutation(
+    {
+      onSuccess: () => {
+        console.log("Image deleted successfully!");
+        toast("Image deleted.", {
+          description: "Image has been deleted.",
+        });
+      },
+    },
+  );
 
   const onCancel = () => {
+    if (form.getValues("images").length > 0)
+      form.getValues("images").forEach((image) => {
+        deleteImage(image.key);
+      });
+
     form.reset();
   };
 
@@ -577,20 +597,26 @@ export function ItemCreateForm() {
                 </FormItem>
               )}
             />
-            <DrawerFooter className="flex w-full flex-row gap-2 ">
+            <DrawerFooter >
               <DrawerClose asChild>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  className="w-1/2"
-                  onClick={onCancel}
-                >
-                  Close
-                </Button>
+                <div className="flex w-full flex-row gap-4 ">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="w-1/2"
+                    onClick={onCancel}
+                  >
+                    Close
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-1/2"
+                  >
+                    Add item
+                  </Button>
+                </div>
               </DrawerClose>
-              <Button type="submit" disabled={isSubmitting} className="w-1/2">
-                Add item
-              </Button>
             </DrawerFooter>
           </form>
         </Form>
