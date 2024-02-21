@@ -1,4 +1,6 @@
 import Head from "next/head";
+import { Toaster } from "~/components/ui/sonner"
+
 import { api } from "~/utils/api";
 import ItemGallery from "~/components/item-display/item-gallery";
 import { LoadingPage } from "~/components/loading";
@@ -45,6 +47,7 @@ export default function Home() {
           {!!isSignedIn && <ItemsTable />}
         </div>
       </main>
+      <Toaster />
     </>
   );
 }

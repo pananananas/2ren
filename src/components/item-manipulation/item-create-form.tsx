@@ -9,6 +9,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { api } from "~/utils/api";
+import { toast } from "sonner";
+
 import { z } from "zod";
 import {
   Form,
@@ -82,6 +84,7 @@ export function ItemCreateForm() {
   });
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+
   useEffect(() => {
     const meta = document.createElement("meta");
     meta.name = "viewport";
@@ -134,7 +137,13 @@ export function ItemCreateForm() {
                           },
                         ]);
                       });
-                      alert("Image uploaded successfully!");
+                      toast("Image uploaded successfully!", {
+                        description: "Added image to the item.",
+                        action: {
+                          label: "Close",
+                          onClick: () => console.log("Undo"),
+                        },
+                      })
                     }}
                     onUploadError={(error: Error) => {
                       alert(`ERROR! ${error.message}`);
@@ -506,7 +515,13 @@ export function ItemCreateForm() {
                     },
                   ]);
                 });
-                alert("Image uploaded successfully!");
+                toast("Image uploaded successfully!", {
+                  description: "Added image to the item.",
+                  action: {
+                    label: "Close",
+                    onClick: () => console.log("Undo"),
+                  },
+                })
               }}
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
