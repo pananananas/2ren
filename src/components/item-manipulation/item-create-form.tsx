@@ -107,6 +107,7 @@ export function ItemCreateForm() {
           onClick: () => console.log("Close"),
         },
       });
+      form.reset();
     },
     onError: (error) => {
       toast("Item failed to be added!", {
@@ -115,6 +116,10 @@ export function ItemCreateForm() {
       setIsSubmitting(false);
     },
   });
+
+  const onCancel = () => {
+    form.reset();
+  };
 
   const onSubmit = form.handleSubmit((values) => {
     // This function will only be called if the form is valid
@@ -338,7 +343,7 @@ export function ItemCreateForm() {
               />
               <DialogFooter className="">
                 <DialogClose asChild>
-                  <Button type="button" variant="secondary">
+                  <Button type="button" variant="secondary" onClick={onCancel}>
                     Cancel
                   </Button>
                 </DialogClose>
@@ -574,7 +579,12 @@ export function ItemCreateForm() {
             />
             <DrawerFooter className="flex w-full flex-row gap-2 ">
               <DrawerClose asChild>
-                <Button type="button" variant="secondary" className="w-1/2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="w-1/2"
+                  onClick={onCancel}
+                >
                   Close
                 </Button>
               </DrawerClose>
