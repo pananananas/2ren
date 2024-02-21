@@ -1,5 +1,5 @@
 "use client";
-
+import { ClearUntrackedUptFiles } from "~/components/item-manipulation/clear-untracked-upt-files";
 import * as React from "react";
 import {
   type ColumnDef,
@@ -99,7 +99,8 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <ItemCreateForm/>
+        <ItemCreateForm />
+        <ClearUntrackedUptFiles />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -180,7 +181,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-end space-x-2 py-4">
         {" "}
         {/* Footer */}
-        <div className="text-muted-foreground flex-1 text-sm">
+        <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>

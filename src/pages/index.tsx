@@ -1,14 +1,12 @@
-import Head from "next/head";
-import { Toaster } from "~/components/ui/sonner";
-
-import { ClearUntrackedUptFiles } from "~/components/item-manipulation/clear-untracked-upt-files";
-import { api } from "~/utils/api";
+import { ItemCreateForm } from "~/components/item-manipulation/item-create-form";
+import ItemsTable from "~/components/dashboard-table/items-data-table";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemGallery from "~/components/item-display/item-gallery";
 import { LoadingPage } from "~/components/loading";
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import ItemsTable from "~/components/dashboard-table/items-data-table";
-import { ItemCreateForm } from "~/components/item-manipulation/item-create-form";
+import { Toaster } from "~/components/ui/sonner";
 import { Button } from "~/components/ui/button";
+import { api } from "~/utils/api";
+import Head from "next/head";
 
 export default function Home() {
   api.items.getAll.useQuery();
@@ -42,8 +40,6 @@ export default function Home() {
           </div>
 
           {!!isSignedIn && <ItemCreateForm />}
-
-          <ClearUntrackedUptFiles />
 
           <ItemGallery />
 
