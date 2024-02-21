@@ -47,7 +47,7 @@ export default function Home() {
           {!!isSignedIn && <ItemsTable />}
         </div>
       </main>
-      <Toaster />
+      <Toaster position="top-center"/>
     </>
   );
 }

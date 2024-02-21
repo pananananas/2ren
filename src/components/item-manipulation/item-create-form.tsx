@@ -1,6 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UploadDropzone } from "~/utils/uploadthing";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { Textarea } from "../ui/textarea";
 import { useForm } from "react-hook-form";
@@ -45,8 +46,6 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 
-import React, { useEffect } from "react";
-
 // Define the form schema using Zod
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -83,7 +82,7 @@ export function ItemCreateForm() {
     },
   });
   const isDesktop = useMediaQuery("(min-width: 768px)");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const meta = document.createElement("meta");
@@ -100,11 +99,26 @@ export function ItemCreateForm() {
   const { mutate } = api.items.create.useMutation({
     onSuccess: () => {
       void ctx.items.getAll.invalidate();
+      setIsSubmitting(false);
+      toast("Item added successfully!", {
+        description: "Item has been added to the database.",
+        action: {
+          label: "Close",
+          onClick: () => console.log("Close"),
+        },
+      });
+    },
+    onError: (error) => {
+      toast("Item failed to be added!", {
+        description: `ERROR! ${error.message}`,
+      });
+      setIsSubmitting(false);
     },
   });
 
   const onSubmit = form.handleSubmit((values) => {
     // This function will only be called if the form is valid
+    setIsSubmitting(true);
     console.log("Form values", values);
     mutate(values);
   });
@@ -143,7 +157,7 @@ export function ItemCreateForm() {
                           label: "Close",
                           onClick: () => console.log("Undo"),
                         },
-                      })
+                      });
                     }}
                     onUploadError={(error: Error) => {
                       alert(`ERROR! ${error.message}`);
@@ -328,7 +342,9 @@ export function ItemCreateForm() {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button type="submit">Add item</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  Add item
+                </Button>
               </DialogFooter>
             </form>
           </Form>
@@ -521,10 +537,16 @@ export function ItemCreateForm() {
                     label: "Close",
                     onClick: () => console.log("Undo"),
                   },
-                })
+                });
               }}
               onUploadError={(error: Error) => {
-                alert(`ERROR! ${error.message}`);
+                toast("Image failed to be uploaded!", {
+                  description: `ERROR! ${error.message}`,
+                  action: {
+                    label: "",
+                    onClick: () => console.log("Undo"),
+                  },
+                });
               }}
               config={{ mode: "auto" }}
             />
@@ -556,7 +578,7 @@ export function ItemCreateForm() {
                   Close
                 </Button>
               </DrawerClose>
-              <Button type="submit" className="w-1/2">
+              <Button type="submit" disabled={isSubmitting} className="w-1/2">
                 Add item
               </Button>
             </DrawerFooter>

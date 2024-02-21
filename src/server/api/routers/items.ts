@@ -36,7 +36,6 @@ export const itemsRouter = createTRPCRouter({
 
     // console.log(users);  //console log user info saved in the database
 
-
     // console.log("uploadthing files", await utapi.listFiles({ limit: 1000 }));
 
     return items.map((item) => ({
@@ -103,7 +102,7 @@ export const itemsRouter = createTRPCRouter({
   delete: privateProcedure
     .input(z.number())
     .mutation(async ({ ctx, input }) => {
-      const authorID = ctx.userId;
+      // const authorID = ctx.userId;
 
       const itemImages = await ctx.db.itemImage.findMany({
         where: {
@@ -125,7 +124,7 @@ export const itemsRouter = createTRPCRouter({
       const item = await ctx.db.item.deleteMany({
         where: {
           id: input,
-          authorID: authorID,
+          // authorID: authorID,
         },
       });
 
