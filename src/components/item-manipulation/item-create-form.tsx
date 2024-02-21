@@ -335,30 +335,13 @@ export function ItemCreateForm() {
         <Button variant="outline">Add Item</Button>
       </DrawerTrigger>
 
-      <DrawerContent className="">
+      <DrawerContent>
+        <DialogHeader>
+          <DialogTitle className="pt-2">Add new item</DialogTitle>
+        </DialogHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-2 px-3">
             {/* <DrawerTitle className="px-3 py-1">Add new item</DrawerTitle> */}
-            <UploadDropzone
-              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
-              endpoint="imageUploader"
-              onClientUploadComplete={(res) => {
-                res.forEach((file) => {
-                  form.setValue("images", [
-                    ...form.getValues("images"),
-                    {
-                      imageUrl: file.url,
-                      key: file.key,
-                    },
-                  ]);
-                });
-                alert("Image uploaded successfully!");
-              }}
-              onUploadError={(error: Error) => {
-                alert(`ERROR! ${error.message}`);
-              }}
-              config={{ mode: "auto" }}
-            />
             <div className="flex w-full gap-4">
               <div className="w-2/3">
                 <FormField
@@ -509,6 +492,26 @@ export function ItemCreateForm() {
                   <FormMessage />
                 </FormItem>
               )}
+            />
+            <UploadDropzone
+              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                res.forEach((file) => {
+                  form.setValue("images", [
+                    ...form.getValues("images"),
+                    {
+                      imageUrl: file.url,
+                      key: file.key,
+                    },
+                  ]);
+                });
+                alert("Image uploaded successfully!");
+              }}
+              onUploadError={(error: Error) => {
+                alert(`ERROR! ${error.message}`);
+              }}
+              config={{ mode: "auto" }}
             />
             <FormField
               control={form.control}
