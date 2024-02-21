@@ -129,13 +129,17 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
   );
 
   const onCancel = () => {
-    const imagesChanged = form.getValues("images").some((image) => !itemImages.some((itemImage) => itemImage.key === image.key));
-    console.log ("imagesChanged", imagesChanged);
+    const imagesChanged = form
+      .getValues("images")
+      .some(
+        (image) => !itemImages.some((itemImage) => itemImage.key === image.key),
+      );
+    console.log("imagesChanged", imagesChanged);
 
-    // if (imagesChanged)
-    //   form.getValues("images").forEach((image) => {
-    //     deleteImage(image.key);
-    //   });
+    if (imagesChanged)
+      form.getValues("images").forEach((image) => {
+        deleteImage(image.key);
+      });
 
     form.reset();
   };
@@ -155,8 +159,8 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
 
         <DialogContent className="">
           <DialogHeader>
-            <DialogTitle>Add new item</DialogTitle>
-            <DialogDescription>You can add new items here.</DialogDescription>
+            <DialogTitle>Edit your item</DialogTitle>
+            <DialogDescription>You can edit your item here.</DialogDescription>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={onSubmit} className="space-y-2">
@@ -362,7 +366,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
               />
               <DialogFooter className="">
                 <DialogClose asChild>
-                  <div>
+                  <div className="flex w-full justify-end gap-4">
                     <Button
                       type="button"
                       variant="secondary"
@@ -387,12 +391,12 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Add Item</Button>
+        <Button variant="outline">Edit</Button>
       </DrawerTrigger>
 
       <DrawerContent>
         <DialogHeader>
-          <DialogTitle className="pt-2">Add new item</DialogTitle>
+          <DialogTitle className="pt-2">Edit your item</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={onSubmit} className="space-y-2 px-3">
@@ -604,7 +608,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
             />
             <DrawerFooter>
               <DrawerClose asChild>
-                <div className="flex w-full flex-row gap-4 ">
+                <div className="flex-end flex w-full gap-4 ">
                   <Button
                     type="button"
                     variant="secondary"

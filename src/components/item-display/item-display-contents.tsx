@@ -27,7 +27,7 @@ export const ItemDisplayContents = ({
   return (
     <div className="mx-auto w-full max-w-sm">
       {!!isSignedIn && user.id === item.authorID && (
-        <div className="flex justify-end gap-4 px-2">
+        <div className="flex justify-end gap-4 py-2 p-4">
           <ItemEdit
             key={item.id}
             item={item}

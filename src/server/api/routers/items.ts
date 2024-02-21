@@ -132,63 +132,80 @@ export const itemsRouter = createTRPCRouter({
     }),
 
   edit: privateProcedure
-  .input(
-    z.object({
-      id: z.number(),
-      name: z.string().min(1).max(280),
-      color: z.string().max(100),
-      material: z.string().max(280),
-      category: z.string().min(1).max(280),
-      price: z.string().max(280),
-      currency: z.string().max(280),
-      amount: z.string().max(280),
-      display: z.boolean(),
-      description: z.string().min(0).max(1000),
-      images: z.array(
-        z.object({
-          // Expect an array of objects for images
-          imageUrl: z.string().max(1000),
-          key: z.string().max(1000),
-        }),
-      ),
-    }),
-  )
-  .mutation(async ({ ctx, input }) => {
-    const { images, ...itemData } = input;
-    const authorID = ctx.userId;
+    .input(
+      z.object({
+        id: z.number(),
+        name: z.string().min(1).max(280),
+        color: z.string().max(100),
+        material: z.string().max(280),
+        category: z.string().min(1).max(280),
+        price: z.string().max(280),
+        currency: z.string().max(280),
+        amount: z.string().max(280),
+        display: z.boolean(),
+        description: z.string().min(0).max(1000),
+        images: z.array(
+          z.object({
+            // Expect an array of objects for images
+            imageUrl: z.string().max(1000),
+            key: z.string().max(1000),
+          }),
+        ),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { images, ...itemData } = input;
+      const authorID = ctx.userId;
 
-    const item = await ctx.db.item.update({
-      where: {
-        id: itemData.id,
-      },
-      data: {
-        authorID: authorID,
-        ...itemData,
-      },
-    });
-    //  if images array is empty, return the item
-    if (images.length === 0) {
+      const item = await ctx.db.item.update({
+        where: {
+          id: itemData.id,
+        },
+        data: {
+          authorID: authorID,
+          ...itemData,
+        },
+      });
+
+      // Check if images have changed
+      // const imagesChanged = JSON.stringify(images) !== JSON.stringify(images);
+
+      // if (imagesChanged) {
+      //   // Delete all previous images
+      //   const itemImages = await ctx.db.itemImage.findMany({
+      //     where: {
+      //       itemId: item.id,
+      //     },
+      //   });
+
+      //   await Promise.all(
+      //     itemImages.map(async (itemImage) => {
+      //       await utapi.deleteFiles(itemImage.key);
+      //       return ctx.db.itemImage.delete({
+      //         where: {
+      //           id: itemImage.id,
+      //         },
+      //       });
+      //     }),
+      //   );
+
+      //   // Create ItemImage records for each image
+      //   const imageRecords = images.map((imageData) => ({
+      //     imageUrl: imageData.imageUrl,
+      //     key: imageData.key,
+      //     itemId: item.id,
+      //   }));
+
+      //   // Use Promise.all for concurrent creation of item image records
+      //   await Promise.all(
+      //     imageRecords.map((imgData) =>
+      //       ctx.db.itemImage.create({
+      //         data: imgData,
+      //       }),
+      //     ),
+      //   );
+      // }
+
       return item;
-    }
-
-    // // Create ItemImage records for each image
-    // const imageRecords = images.map((imageData) => ({
-    //   imageUrl: imageData.imageUrl,
-    //   key: imageData.key,
-    //   itemId: item.id,
-    // }));
-
-    // // Use Promise.all for concurrent creation of item image records
-    // await Promise.all(
-    //   imageRecords.map((imgData) =>
-    //     ctx.db.itemImage.create({
-    //       data: imgData,
-    //     }),
-    //   ),
-    // );
-
-    return item;
-  }),
-
-    
+    }),
 });
