@@ -1,4 +1,3 @@
-import Image from "next/image";
 import * as React from "react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -10,41 +9,24 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "~/components/ui/drawer";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "~/components/ui/carousel";
+import { ItemDisplayCarousel } from "./item-display-carousel";
 
-export const ItemDisplayContents = ({ item, itemImages, isDesktop }: ItemCardProps) => {
+export const ItemDisplayContents = ({
+  item,
+  itemImages,
+  selectedItemId,
+  isDesktop,
+}: ItemCardProps) => {
   return (
     <div className="mx-auto w-full max-w-sm">
       {itemImages.length > 0 && (
-        <div className=" flex w-full justify-center items-center p-2 pt-6">
-          <Carousel className="w-3/4 rounded-[5px]">
-            <CarouselContent className="rounded-[5px]  items-center">
-              {itemImages.map((image, index) => (
-                <CarouselItem key={index} >
-                  <Image
-                    src={image.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
-                    alt={item.name}
-                    width={384}
-                    height={130}
-                    className="mx-auto rounded-[5px] object-cover"
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            {itemImages.length > 1 && (
-              <>
-                <CarouselPrevious />
-                <CarouselNext />
-              </>
-            )}
-          </Carousel>
-        </div>
+        <ItemDisplayCarousel
+          key={item.id}
+          item={item}
+          itemImages={itemImages}
+          selectedItemId={selectedItemId}
+          isDesktop={isDesktop}
+        />
       )}
       <DrawerHeader>
         <div className="relative w-full">
