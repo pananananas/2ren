@@ -79,10 +79,6 @@ export function ItemCreateForm() {
       currency: "zł",
       amount: "",
       images: [
-        {
-          imageUrl: "",
-          key: "",
-        },
       ],
     },
   });
