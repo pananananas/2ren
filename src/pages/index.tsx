@@ -1,6 +1,7 @@
 import Head from "next/head";
-import { Toaster } from "~/components/ui/sonner"
+import { Toaster } from "~/components/ui/sonner";
 
+import { ClearUntrackedUptFiles } from "~/components/item-manipulation/clear-untracked-upt-files";
 import { api } from "~/utils/api";
 import ItemGallery from "~/components/item-display/item-gallery";
 import { LoadingPage } from "~/components/loading";
@@ -42,12 +43,14 @@ export default function Home() {
 
           {!!isSignedIn && <ItemCreateForm />}
 
+          <ClearUntrackedUptFiles />
+
           <ItemGallery />
 
           {!!isSignedIn && <ItemsTable />}
         </div>
       </main>
-      <Toaster position="top-center"/>
+      <Toaster position="top-center" />
     </>
   );
 }

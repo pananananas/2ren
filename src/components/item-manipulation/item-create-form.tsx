@@ -78,8 +78,7 @@ export function ItemCreateForm() {
       color: "",
       currency: "zł",
       amount: "",
-      images: [
-      ],
+      images: [],
     },
   });
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -593,7 +592,7 @@ export function ItemCreateForm() {
                 </FormItem>
               )}
             />
-            <DrawerFooter >
+            <DrawerFooter>
               <DrawerClose asChild>
                 <div className="flex w-full flex-row gap-4 ">
                   <Button

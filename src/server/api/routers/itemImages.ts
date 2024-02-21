@@ -42,4 +42,39 @@ export const itemImagesRouter = createTRPCRouter({
 
       return;
     }),
+
+  clearUntrackedUptFiles: privateProcedure.mutation(async ({ ctx }) => {
+    // Step 1: Retrieve the list of files from uploadthing
+    const uptFiles = await utapi.listFiles({ limit: 100 });
+
+    // Step 2: Fetch the list of image keys from your database
+    const dbKeys = await ctx.db.itemImage.findMany({
+      select: {
+        key: true, // Only fetch the 'key' field
+      },
+    });
+    const trackedKeys = dbKeys.map((dbFile) => dbFile.key);
+
+    console.log("trackedKeys", trackedKeys);
+
+    // Step 3: Identify untracked files
+    const untrackedFiles = uptFiles.filter(
+      (uptFile) => !trackedKeys.includes(uptFile.key),
+    );
+
+    // Step 4: Delete untracked files from uploadthing
+    for (const file of untrackedFiles) {
+      try {
+        await utapi.deleteFiles(file.key); // Assuming deleteImageFromUPT is available in the scope
+        console.log(`Deletion succeeded for file: ${file.key}`);
+      } catch (error) {
+        console.error(`Deletion failed for file: ${file.key}`, error);
+      }
+    }
+
+    console.log(
+      `Completed clearing untracked files. Total deleted: ${untrackedFiles.length}`,
+    );
+    return { deletedCount: untrackedFiles.length };
+  }),
 });
