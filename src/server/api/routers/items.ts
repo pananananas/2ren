@@ -166,45 +166,43 @@ export const itemsRouter = createTRPCRouter({
           ...itemData,
         },
       });
-
-      // Check if images have changed
-      // const imagesChanged = JSON.stringify(images) !== JSON.stringify(images);
-
-      // if (imagesChanged) {
-      //   // Delete all previous images
-      //   const itemImages = await ctx.db.itemImage.findMany({
-      //     where: {
-      //       itemId: item.id,
-      //     },
-      //   });
-
-      //   await Promise.all(
-      //     itemImages.map(async (itemImage) => {
-      //       await utapi.deleteFiles(itemImage.key);
-      //       return ctx.db.itemImage.delete({
-      //         where: {
-      //           id: itemImage.id,
-      //         },
-      //       });
-      //     }),
-      //   );
-
-      //   // Create ItemImage records for each image
-      //   const imageRecords = images.map((imageData) => ({
-      //     imageUrl: imageData.imageUrl,
-      //     key: imageData.key,
+      // TODO: Update images
+      // const itemImages = await ctx.db.itemImage.findMany({
+      //   where: {
       //     itemId: item.id,
-      //   }));
+      //   },
+      // });
 
-      //   // Use Promise.all for concurrent creation of item image records
-      //   await Promise.all(
-      //     imageRecords.map((imgData) =>
-      //       ctx.db.itemImage.create({
-      //         data: imgData,
-      //       }),
-      //     ),
-      //   );
-      // }
+      // await Promise.all(
+      //   itemImages.map(async (itemImage) => {
+      //     await utapi.deleteFiles(itemImage.key);
+      //     return ctx.db.itemImage.deleteMany({
+      //       where: {
+      //         id: itemImage.id,
+      //       },
+      //     });
+      //   }),
+      // );
+      // console.log("Deleted images", itemImages);
+
+      // Filter out existing images
+      // const newImages = images.filter((imageData) => !imageData.key);
+
+      // // Create ItemImage records for each new image
+      // const imageRecords = newImages.map((imageData) => ({
+      //   imageUrl: imageData.imageUrl,
+      //   key: imageData.key,
+      //   itemId: item.id,
+      // }));
+
+      // // Use Promise.all for concurrent creation of item image records
+      // await Promise.all(
+      //   imageRecords.map((imgData) =>
+      //     ctx.db.itemImage.create({
+      //       data: imgData,
+      //     }),
+      //   ),
+      // );
 
       return item;
     }),

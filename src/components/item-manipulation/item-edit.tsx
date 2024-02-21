@@ -120,15 +120,15 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
   const { mutate: deleteImage } = api.itemImages.deleteImageFromUPT.useMutation(
     {
       onSuccess: () => {
-        console.log("Image deleted successfully!");
-        toast("Image deleted.", {
-          description: "Image has been deleted.",
+        // console.log("Image deleted successfully!");
+        toast("Cancelled image upload!", {
+          description: "Image has not been added to the item.",
         });
       },
     },
   );
 
-  const onCancel = () => {
+  const onCancel = () => {          // TODO: This function is sketchy, try to simplify it
     const imagesChanged = form
       .getValues("images")
       .some(
