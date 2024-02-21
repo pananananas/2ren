@@ -13,6 +13,7 @@ import {
   DrawerTitle,
 } from "~/components/ui/drawer";
 import { ItemDeleteAlert } from "../item-manipulation/item-delete-alert";
+import { ItemEdit } from "../item-manipulation/item-edit";
 
 export const ItemDisplayContents = ({
   item,
@@ -21,23 +22,20 @@ export const ItemDisplayContents = ({
   isDesktop,
 }: ItemCardProps) => {
   const { isLoaded: userLoaded, isSignedIn, user } = useUser();
-  console.log("User: ", user);
   if (!userLoaded) return <LoadingPage />;
-  // if (!user) return <LoadingPage />;
-  // const isAuthor = user.id === item.authorID;
-
-  // console.log("user.id: ", user.id);
-  // console.log("item.authorID: ", item.authorID);
-  // console.log("isAuthor: ", isAuthor);
-  const itemId = item.id;
 
   return (
     <div className="mx-auto w-full max-w-sm">
       {!!isSignedIn && user.id === item.authorID && (
-        <div>
-          <Button variant="outline">Edit</Button>
-          <ItemDeleteAlert itemId={itemId}
+        <div className="flex justify-end gap-4 px-2">
+          <ItemEdit
+            key={item.id}
+            item={item}
+            itemImages={itemImages}
+            selectedItemId={selectedItemId}
+            isDesktop={isDesktop}
           />
+          <ItemDeleteAlert itemId={item.id} />
         </div>
       )}
 
