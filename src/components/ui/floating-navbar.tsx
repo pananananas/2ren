@@ -63,7 +63,7 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          "fixed inset-x-0 top-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full  bg-[rgba(255,255,255,0.95)] py-2 pl-4 pr-2 shadow-md dark:bg-black sm:top-4",
+          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full  bg-[rgba(255,255,255,0.95)] py-2 pl-4 pr-2 shadow-md  sm:top-4",
           className,
         )}
       >
@@ -72,7 +72,7 @@ export const FloatingNav = ({
             key={`link=${idx}`}
             href={navItem.link}
             className={cn(
-              "relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 dark:text-neutral-50 dark:hover:text-neutral-300",
+              "relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 ",
             )}
           >
             <span className="hidden">{navItem.icon}</span>
@@ -82,7 +82,7 @@ export const FloatingNav = ({
         <div className="flex gap-2">
           {!isSignedIn && (
             <SignInButton>
-              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
+              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 ">
                 Sign in
                 <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
               </Button>
@@ -90,7 +90,7 @@ export const FloatingNav = ({
           )}
           {!!isSignedIn && (
             <SignOutButton>
-              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
+              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 ">
                 Sign out
                 {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
               </Button>
