@@ -10,6 +10,7 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { ItemCreateForm } from "../item-manipulation/item-create-form";
+import { useMediaQuery } from "usehooks-ts";
 
 export const FloatingNav = ({
   navItems,
@@ -22,6 +23,7 @@ export const FloatingNav = ({
   }[];
   className?: string;
 }) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const { isLoaded, isSignedIn } = useUser();
   const { scrollYProgress } = useScroll();
 
@@ -33,19 +35,19 @@ export const FloatingNav = ({
       setVisible(true);
     }
   }, [isLoaded]);
-
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
-    if (typeof current === "number") {
-      const direction = current - scrollYProgress.getPrevious()!;
-      // console.log("direction", direction, "current", current);
+    if (!isMobile)
+      if (typeof current === "number") {
+        // Check if current is not undefined and is a number
+        const direction = current - scrollYProgress.getPrevious()!;
+        // console.log("direction", direction, "current", current);
 
-      if (direction < 0 && current > -0.5) {
-        setVisible(true);
-      } else {
-        setVisible(false);
+        if (direction < 0 && current > -0.5) {
+          setVisible(true);
+        } else {
+          setVisible(false);
+        }
       }
-    }
   });
 
   return (
@@ -103,7 +105,7 @@ export const FloatingNav = ({
               </Button>
             </Link>
           )}
-          {!!isSignedIn && <ItemCreateForm variant="rounded"/>}
+          {!!isSignedIn && <ItemCreateForm variant="rounded" />}
         </div>
       </motion.div>
     </AnimatePresence>
