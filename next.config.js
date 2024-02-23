@@ -19,7 +19,7 @@ const config = {
   },
 
   images: {
-    domains: ["utfs.io"], // Add the hostname here
+    domains: ["utfs.io", "images.clerk.dev"],
   },
 };
 

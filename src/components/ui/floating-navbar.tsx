@@ -12,19 +12,11 @@ import {
 import { ItemCreateForm } from "../item-manipulation/item-create-form";
 import { useMediaQuery } from "usehooks-ts";
 import { Search } from "../navbar/search";
+import Image from "next/image";
 
-export const FloatingNav = ({
-  navItems,
-  className,
-}: {
-  navItems: {
-    name: string;
-    link: string;
-  }[];
-  className?: string;
-}) => {
+export const FloatingNav = ({ className }: { className?: string }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const { isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
   const { scrollYProgress } = useScroll();
 
   const [visible, setVisible] = useState(false);
@@ -35,10 +27,12 @@ export const FloatingNav = ({
   useEffect(() => {
     if (isLoaded) {
       setVisible(true);
+      console.log(user?.imageUrl, "user");
     }
-  }, [isLoaded]);
+  }, [isLoaded, user?.imageUrl]);
+
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    if (!isMobile)
+    if (false)
       if (typeof current === "number") {
         // Check if current is not undefined and is a number
         const direction = current - scrollYProgress.getPrevious()!;
@@ -67,21 +61,27 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-16 max-w-fit items-center justify-center space-x-4 rounded-full border bg-[rgba(255,255,255,0.95)] py-2 pl-6 pr-2 shadow-md sm:top-4  sm:h-14",
+          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full  bg-[rgba(255,255,255,0.95)] px-2 py-2 shadow-md sm:top-4 ",
           className,
         )}
       >
-        {navItems.map((navItem, idx: number) => (
-          <Link
-            key={`link=${idx}`}
-            href={navItem.link}
-            className={cn(
-              "relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 ",
-            )}
-          >
-            <span className="block text-sm">{navItem.name}</span>
-          </Link>
-        ))}
+        {/* {user && (
+          <Image
+            src={user.profileImageUrl}
+            alt="profile image"
+            className="h-10 w-10 rounded-full"
+            width={50}
+            height={50}
+          />
+        )} */}
+
+        <Link
+          href="/"
+          className="relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 "
+        >
+          {/* <Button className="aspect-square rounded-full bg-teal-900 hover:bg-teal-800" /> */}
+          <span className="block pl-4 text-sm">Home</span>
+        </Link>
         {!isSignedIn && (
           <Link
             href="/about"
@@ -110,12 +110,10 @@ export const FloatingNav = ({
         )}
 
         <div className="flex gap-2 pl-0 md:pl-20 lg:pl-40">
-          {!isMobile && (
-              <Search />
-          )}
+          {!isMobile && <Search />}
           {!isSignedIn && (
             <SignInButton>
-              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 ">
+              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-gray-50 ">
                 Sign in
                 {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
               </Button>
@@ -123,7 +121,7 @@ export const FloatingNav = ({
           )}
           {!!isSignedIn && (
             <SignOutButton>
-              <Button className="font-large relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm text-black hover:bg-emerald-50 ">
+              <Button className="font-large relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm text-black hover:bg-gray-50 ">
                 Log out
                 {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
               </Button>
