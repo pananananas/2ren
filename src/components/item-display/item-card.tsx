@@ -12,11 +12,10 @@ export const ItemCard = ({
   return (
     <div
       key={item.id}
-      className={`${
-        selectedItemId === item.id ? "border border-teal-600 rounded-2xl" : ""
-      }`}
     >
-      <Card className="w-[170px] p-[10px] lg:w-[180px]">
+      <Card className={`w-[170px] p-[10px] lg:w-[180px] ${
+        selectedItemId === item.id ? "bg-gray-100" : ""
+      }`}>
         {/* Display the first image for this item, if available */}
         {itemImages.length > 0 && (
           <div className="relative h-[130px] w-full rounded-[5px]">

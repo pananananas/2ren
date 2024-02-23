@@ -11,6 +11,7 @@ import {
 } from "framer-motion";
 import { ItemCreateForm } from "../item-manipulation/item-create-form";
 import { useMediaQuery } from "usehooks-ts";
+import { Search } from "../navbar/search";
 
 export const FloatingNav = ({
   navItems,
@@ -19,7 +20,6 @@ export const FloatingNav = ({
   navItems: {
     name: string;
     link: string;
-    icon?: JSX.Element;
   }[];
   className?: string;
 }) => {
@@ -67,7 +67,7 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full bg-[rgba(255,255,255,0.95)] py-2 pl-4 pr-2 shadow-md  sm:top-4",
+          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-16 max-w-fit items-center justify-center space-x-4 rounded-full border bg-[rgba(255,255,255,0.95)] py-2 pl-6 pr-2 shadow-md sm:top-4  sm:h-14",
           className,
         )}
       >
@@ -79,11 +79,40 @@ export const FloatingNav = ({
               "relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 ",
             )}
           >
-            <span className="hidden">{navItem.icon}</span>
             <span className="block text-sm">{navItem.name}</span>
           </Link>
         ))}
-        <div className="flex gap-2">
+        {!isSignedIn && (
+          <Link
+            href="/about"
+            className="relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 "
+          >
+            <span className="block text-sm">About</span>
+          </Link>
+        )}
+
+        {!!isSignedIn && (
+          <Link
+            href="/dashboard"
+            className="relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 "
+          >
+            <span className="block text-sm">Dashboard</span>
+          </Link>
+        )}
+
+        {!isMobile && !!isSignedIn && (
+          <Link
+            href="/contact"
+            className="relative flex items-center space-x-1 text-neutral-600 hover:text-neutral-500 "
+          >
+            <span className="block text-sm">Contact</span>
+          </Link>
+        )}
+
+        <div className="flex gap-2 pl-0 md:pl-20 lg:pl-40">
+          {!isMobile && (
+              <Search />
+          )}
           {!isSignedIn && (
             <SignInButton>
               <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 ">
@@ -94,8 +123,8 @@ export const FloatingNav = ({
           )}
           {!!isSignedIn && (
             <SignOutButton>
-              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 ">
-                Sign out
+              <Button className="font-large relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm text-black hover:bg-emerald-50 ">
+                Log out
                 {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
               </Button>
             </SignOutButton>
