@@ -1,15 +1,14 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-
 import React, { useState, useEffect } from "react";
 import { Button } from "~/components/ui/button";
+import { cn } from "~/utils/cn";
+import Link from "next/link";
 import {
   motion,
   AnimatePresence,
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { cn } from "~/utils/cn";
-import Link from "next/link";
 
 export const FloatingNav = ({
   navItems,
@@ -26,25 +25,27 @@ export const FloatingNav = ({
   const { scrollYProgress } = useScroll();
 
   const [visible, setVisible] = useState(false);
-  console.log("isLoaded", isLoaded);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setVisible(true);
-    }, 500);
+  // console.log("isLoaded", isLoaded);
 
-    return () => clearTimeout(timeout);
-  }, []);
+  useEffect(() => {
+    if (isLoaded) {
+      setVisible(true);
+    }
+  }, [isLoaded]);
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
     // Check if current is not undefined and is a number
     if (typeof current === "number") {
       const direction = current - scrollYProgress.getPrevious()!;
+      console.log("direction", direction, "current", current);
 
-      if (direction < 0) {
+      if (direction < 0 && current > -0.5) {
         setVisible(true);
       } else {
         setVisible(false);
       }
+
+
     }
   });
 
@@ -81,7 +82,7 @@ export const FloatingNav = ({
         ))}
         {!isSignedIn && (
           <SignInButton>
-            <Button className="relative rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
+            <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
               Sign in
               <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
             </Button>
@@ -89,7 +90,7 @@ export const FloatingNav = ({
         )}
         {!!isSignedIn && (
           <SignOutButton>
-            <Button className="relative rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
+            <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
               Sign out
               <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
             </Button>
