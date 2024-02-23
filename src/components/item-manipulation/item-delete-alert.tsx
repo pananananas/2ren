@@ -51,7 +51,7 @@ export function ItemDeleteAlert({ itemId }: { itemId: number }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} className="bg-red-500">
+          <AlertDialogAction onClick={handleDelete} className="bg-red-500 hover:bg-red-600">
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>
