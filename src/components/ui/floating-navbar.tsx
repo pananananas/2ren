@@ -29,6 +29,8 @@ export const FloatingNav = ({
 
   const [visible, setVisible] = useState(false);
   // console.log("isLoaded", isLoaded);
+  let direction = 1;
+  if (isMobile) direction = -1;
 
   useEffect(() => {
     if (isLoaded) {
@@ -55,17 +57,17 @@ export const FloatingNav = ({
       <motion.div
         initial={{
           opacity: 1,
-          y: visible ? 0 : -100,
+          y: visible ? 0 : -100 * direction,
         }}
         animate={{
-          y: visible ? 0 : -100,
+          y: visible ? 0 : -100 * direction,
           opacity: visible ? 1 : 0,
         }}
         transition={{
           duration: 0.2,
         }}
         className={cn(
-          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full  bg-[rgba(255,255,255,0.95)] py-2 pl-4 pr-2 shadow-md  sm:top-4",
+          "fixed inset-x-0 bottom-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full bg-[rgba(255,255,255,0.95)] py-2 pl-4 pr-2 shadow-md  sm:top-4",
           className,
         )}
       >
@@ -86,7 +88,7 @@ export const FloatingNav = ({
             <SignInButton>
               <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 ">
                 Sign in
-                <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
+                {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
               </Button>
             </SignInButton>
           )}
