@@ -45,5 +45,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-# ignore todo file
+# ignore todo file and plans folder
 TODO.md
+/plans
