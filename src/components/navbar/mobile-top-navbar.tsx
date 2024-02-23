@@ -24,7 +24,7 @@ export function MobileTopNavbar() {
   ];
   return (
     <div className="absolute  w-full">
-      <FloatingNav navItems={navItems} />
+      <FloatingNav navItems={navItems}/>
     </div>
   );
 }
