@@ -14,20 +14,24 @@ export const ItemDisplayCarousel = ({
   itemImages,
   isDesktop,
 }: ItemCardProps) => {
+
+  const imageMaxHeight = window.innerHeight / 2;
+
   return (
     <div>
       <div className=" flex w-full items-center justify-center p-2">
         {isDesktop && (
           <Carousel className="w-full rounded-[5px]">
-            <CarouselContent className="items-center  rounded-[5px]">
+            <CarouselContent className="items-center rounded-[5px]">
               {itemImages.map((image, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={index} >
                   <Image
                     src={image.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
                     alt={item.name}
                     width={384}
                     height={130}
-                    className="mx-auto rounded-[5px] object-cover"
+                    className="mx-auto rounded-[5px] object-cover max-h"
+                    style={{ maxHeight: imageMaxHeight, objectFit: 'cover' }}
                   />
                 </CarouselItem>
               ))}
@@ -44,13 +48,14 @@ export const ItemDisplayCarousel = ({
           <Carousel className="w-3/4 rounded-[5px]">
             <CarouselContent className="items-center  rounded-[5px]">
               {itemImages.map((image, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={index} >
                   <Image
                     src={image.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
                     alt={item.name}
                     width={384}
                     height={130}
                     className="mx-auto rounded-[5px] object-cover"
+                    style={{ maxHeight: imageMaxHeight, objectFit: 'cover' }}
                   />
                 </CarouselItem>
               ))}

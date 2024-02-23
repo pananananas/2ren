@@ -81,6 +81,7 @@ export function ItemDisplay({
       onOpenChange={handleOpenChange}
       onClose={() => closeItemDisplay()}
       preventScrollRestoration={true}
+
     >
       <DrawerTrigger asChild>
         <Button

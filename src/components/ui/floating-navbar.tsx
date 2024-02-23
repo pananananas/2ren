@@ -37,7 +37,7 @@ export const FloatingNav = ({
     // Check if current is not undefined and is a number
     if (typeof current === "number") {
       const direction = current - scrollYProgress.getPrevious()!;
-      console.log("direction", direction, "current", current);
+      // console.log("direction", direction, "current", current);
 
       if (direction < 0 && current > -0.5) {
         setVisible(true);
@@ -64,7 +64,7 @@ export const FloatingNav = ({
           duration: 0.2,
         }}
         className={cn(
-          "fixed inset-x-0 top-2 z-[5000] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full  bg-white py-2 pl-4 pr-2 shadow-md dark:bg-black sm:top-4",
+          "fixed inset-x-0 top-2 z-[50] mx-auto flex h-14 max-w-fit items-center justify-center space-x-4 rounded-full  bg-[rgba(255,255,255,0.95)] py-2 pl-4 pr-2 shadow-md dark:bg-black sm:top-4",
           className,
         )}
       >
