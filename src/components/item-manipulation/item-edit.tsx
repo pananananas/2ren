@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { api } from "~/utils/api";
+import Image from "next/image";
 import { toast } from "sonner";
 
 import { z } from "zod";
@@ -191,6 +192,62 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                       alert(`ERROR! ${error.message}`);
                     }}
                     config={{ mode: "auto" }}
+                    content={{
+                      uploadIcon({ uploadProgress }) {
+                        console.log("uploadProgress", uploadProgress);
+      
+                        // if form images is not empty return "Uploaded"
+                        if (form.getValues("images").length > 0) {
+                          return (
+                            <div className="flex items-center gap-2">
+                              {form.getValues("images").map((image) => (
+                                <div
+                                  key={image.key}
+                                  className="flex items-center "
+                                >
+                                  <div key={image.key} className="relative ">
+                                    <Image
+                                      src={image.imageUrl}
+                                      alt="Item Image"
+                                      width="40"
+                                      height="40"
+                                      className="rounded-md"
+                                    />
+                                    <button
+                                      className="absolute left-1/2 top-1/2 flex aspect-square h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-red-500"
+                                      onClick={() => {
+                                        const updatedImages = form
+                                          .getValues("images")
+                                          .filter(
+                                            (img) => img.key !== image.key,
+                                          );
+                                        form.setValue("images", updatedImages);
+                                        deleteImage(image.key);
+                                      }}
+                                    >
+                                      <svg
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 14 14"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M1 13L13 1M1 1L13 13"
+                                          stroke="black"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          );
+                        }
+                      },
+                    }}
                   />
                 </div>
                 <div className="w-full space-y-2">

@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { api } from "~/utils/api";
 import { toast } from "sonner";
+import Image from "next/image";
 
 import { z } from "zod";
 import {
@@ -75,7 +76,6 @@ interface ItemCreateFormProps {
   variant?: keyof typeof buttonVariants; // Use the keys of the buttonVariants object
 }
 
-
 export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -130,7 +130,6 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
   const { mutate: deleteImage } = api.itemImages.deleteImageFromUPT.useMutation(
     {
       onSuccess: () => {
-        console.log("Image deleted successfully!");
         toast("Image deleted.", {
           description: "Image has been deleted.",
         });
@@ -157,7 +156,6 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
     return (
       <Dialog>
         <DialogTrigger asChild>
-
           <Button className={`${buttonVariants[variant]}`}>Add Item</Button>
         </DialogTrigger>
 
@@ -171,7 +169,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
               <div className="flex w-full gap-4">
                 <div className="w-1/2 ">
                   <UploadDropzone
-                    className="ut-label:text-m p-3  ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+                    className="ut-label:text-m p-3  ut-button:bg-gray-300 ut-button: ut-label:text-gray-900  ut-upload-icon:text-gray-300 "
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
                       res.forEach((file) => {
@@ -195,6 +193,62 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                       alert(`ERROR! ${error.message}`);
                     }}
                     config={{ mode: "auto" }}
+                    content={{
+                      uploadIcon({ uploadProgress }) {
+                        console.log("uploadProgress", uploadProgress);
+
+                        // if form images is not empty return "Uploaded"
+                        if (form.getValues("images").length > 0) {
+                          return (
+                            <div className="flex items-center gap-2">
+                              {form.getValues("images").map((image) => (
+                                <div
+                                  key={image.key}
+                                  className="flex items-center "
+                                >
+                                  <div key={image.key} className="relative ">
+                                    <Image
+                                      src={image.imageUrl}
+                                      alt="Item Image"
+                                      width="40"
+                                      height="40"
+                                      className="rounded-md"
+                                    />
+                                    <button
+                                      className="absolute left-1/2 top-1/2 flex aspect-square h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-red-500"
+                                      onClick={() => {
+                                        const updatedImages = form
+                                          .getValues("images")
+                                          .filter(
+                                            (img) => img.key !== image.key,
+                                          );
+                                        form.setValue("images", updatedImages);
+                                        deleteImage(image.key);
+                                      }}
+                                    >
+                                      <svg
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 14 14"
+                                        fill="none"
+                                      >
+                                        <path
+                                          d="M1 13L13 1M1 1L13 13"
+                                          stroke="black"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          );
+                        }
+                      },
+                    }}
                   />
                 </div>
                 <div className="w-full space-y-2">
@@ -389,7 +443,6 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-
         <Button className={`${buttonVariants[variant]}`}>Add Item</Button>
       </DrawerTrigger>
 
@@ -552,7 +605,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
               )}
             />
             <UploadDropzone
-              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 "
               endpoint="imageUploader"
               onClientUploadComplete={(res) => {
                 res.forEach((file) => {
@@ -582,6 +635,62 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                 });
               }}
               config={{ mode: "auto" }}
+              content={{
+                uploadIcon({ uploadProgress }) {
+                  console.log("uploadProgress", uploadProgress);
+
+                  // if form images is not empty return "Uploaded"
+                  if (form.getValues("images").length > 0) {
+                    return (
+                      <div className="flex items-center gap-2">
+                        {form.getValues("images").map((image) => (
+                          <div
+                            key={image.key}
+                            className="flex items-center "
+                          >
+                            <div key={image.key} className="relative ">
+                              <Image
+                                src={image.imageUrl}
+                                alt="Item Image"
+                                width="40"
+                                height="40"
+                                className="rounded-md"
+                              />
+                              <button
+                                className="absolute left-1/2 top-1/2 flex aspect-square h-6 w-6 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-red-500"
+                                onClick={() => {
+                                  const updatedImages = form
+                                    .getValues("images")
+                                    .filter(
+                                      (img) => img.key !== image.key,
+                                    );
+                                  form.setValue("images", updatedImages);
+                                  deleteImage(image.key);
+                                }}
+                              >
+                                <svg
+                                  width="10"
+                                  height="10"
+                                  viewBox="0 0 14 14"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M1 13L13 1M1 1L13 13"
+                                    stroke="black"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  }
+                },
+              }}
             />
             <FormField
               control={form.control}

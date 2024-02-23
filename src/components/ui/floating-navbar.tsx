@@ -12,7 +12,7 @@ import {
 import { ItemCreateForm } from "../item-manipulation/item-create-form";
 import { useMediaQuery } from "usehooks-ts";
 import { Search } from "../navbar/search";
-import Image from "next/image";
+// import Image from "next/image";
 
 export const FloatingNav = ({ className }: { className?: string }) => {
   const isMobile = useMediaQuery("(max-width: 768px)");
