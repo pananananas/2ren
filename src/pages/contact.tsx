@@ -1,4 +1,3 @@
-import { MobileTopNavbar } from "~/components/navbar/navbar";
 import React from "react";
 
 const ContactPage: React.FC = () => {
@@ -17,7 +16,6 @@ const ContactPage: React.FC = () => {
 
         <button type="submit">Submit</button>
       </form>
-      <MobileTopNavbar />
     </div>
 
   );
