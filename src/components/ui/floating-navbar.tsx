@@ -9,6 +9,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
+import { ItemCreateForm } from "../item-manipulation/item-create-form";
 
 export const FloatingNav = ({
   navItems,
@@ -44,8 +45,6 @@ export const FloatingNav = ({
       } else {
         setVisible(false);
       }
-
-
     }
   });
 
@@ -80,22 +79,32 @@ export const FloatingNav = ({
             <span className="block text-sm">{navItem.name}</span>
           </Link>
         ))}
-        {!isSignedIn && (
-          <SignInButton>
-            <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
-              Sign in
-              <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
-            </Button>
-          </SignInButton>
-        )}
-        {!!isSignedIn && (
-          <SignOutButton>
-            <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
-              Sign out
-              <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
-            </Button>
-          </SignOutButton>
-        )}
+        <div className="flex gap-2">
+          {!isSignedIn && (
+            <SignInButton>
+              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
+                Sign in
+                <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" />
+              </Button>
+            </SignInButton>
+          )}
+          {!!isSignedIn && (
+            <SignOutButton>
+              <Button className="relative rounded-full border border-neutral-200 bg-transparent px-4 py-2 text-sm font-medium text-black hover:bg-emerald-50 dark:border-white/[0.2] dark:text-white">
+                Sign out
+                {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
+              </Button>
+            </SignOutButton>
+          )}
+          {!isSignedIn && (
+            <Link href="/contact">
+              <Button className="relative rounded-full  border-neutral-200 px-4 py-2 text-sm font-medium">
+                Contact
+              </Button>
+            </Link>
+          )}
+          {!!isSignedIn && <ItemCreateForm variant="rounded"/>}
+        </div>
       </motion.div>
     </AnimatePresence>
   );

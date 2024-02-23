@@ -65,7 +65,18 @@ const formSchema = z.object({
   ),
 });
 
-export function ItemCreateForm() {
+const buttonVariants = {
+  default: "",
+  rounded: "rounded-full ",
+  // Add more variants as needed
+};
+
+interface ItemCreateFormProps {
+  variant?: keyof typeof buttonVariants; // Use the keys of the buttonVariants object
+}
+
+
+export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -146,7 +157,8 @@ export function ItemCreateForm() {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Item</Button>
+
+          <Button className={`${buttonVariants[variant]}`}>Add Item</Button>
         </DialogTrigger>
 
         <DialogContent className="">
@@ -377,7 +389,8 @@ export function ItemCreateForm() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Add Item</Button>
+
+        <Button className={`${buttonVariants[variant]}`}>Add Item</Button>
       </DrawerTrigger>
 
       <DrawerContent>
