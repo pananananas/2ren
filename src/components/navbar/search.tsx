@@ -48,7 +48,7 @@ export function Search() {
             <IconSearch className="h-3.5 w-3.5 " />
             Search{" "}
           </span>
-          <kbd className="pt-1.75 pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-full border bg-muted p-1.5 font-mono text-[10px] font-medium text-neutral-600 opacity-90">
+          <kbd className="pt-1.75 pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded-full border bg-muted p-1.5 font-mono text-[10px] font-medium text-gray-500 opacity-90">
             <span className="text-xs">⌘</span>K
           </kbd>
         </p>

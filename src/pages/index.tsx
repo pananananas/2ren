@@ -11,7 +11,7 @@ export default function Home() {
       <Head>
         <title>2REN App</title>
         <meta name="description" content="Your management system" />
-        <link rel="stylesheet" href="https://use.typekit.net/tzu8wjs.css" />
+        
       </Head>
       <main className="flex h-screen justify-center">
         <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">

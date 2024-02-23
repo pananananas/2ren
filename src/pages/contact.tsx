@@ -1,4 +1,4 @@
-import { MobileTopNavbar } from "~/components/navbar/mobile-top-navbar";
+import { MobileTopNavbar } from "~/components/navbar/navbar";
 import React from "react";
 
 const ContactPage: React.FC = () => {

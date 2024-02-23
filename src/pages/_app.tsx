@@ -1,5 +1,5 @@
 
-import { MobileTopNavbar } from "~/components/navbar/mobile-top-navbar";
+import { Navbar } from "~/components/navbar/navbar";
 import { Toaster } from "~/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type AppType } from "next/app";
@@ -10,8 +10,9 @@ import "~/styles/globals.css";
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps} >
+      <link rel="stylesheet" href="https://use.typekit.net/tzu8wjs.css" />
       <Component {...pageProps} />
-      <MobileTopNavbar />
+      <Navbar />
       <Toaster position="top-center" />
 
     </ClerkProvider>
