@@ -1,10 +1,5 @@
-import { ItemCreateForm } from "~/components/item-manipulation/item-create-form";
-// import ItemsTable from "~/components/dashboard-table/items-data-table";
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import ItemGallery from "~/components/item-display/item-gallery";
-import { LoadingPage } from "~/components/loading";
 import { Toaster } from "~/components/ui/sonner";
-import { Button } from "~/components/ui/button";
 import { api } from "~/utils/api";
 import Head from "next/head";
 import { MobileTopNavbar } from "~/components/navbar/mobile-top-navbar";
@@ -12,10 +7,6 @@ import { MobileTopNavbar } from "~/components/navbar/mobile-top-navbar";
 export default function Home() {
   api.items.getAll.useQuery();
   api.itemImages.getAll.useQuery();
-
-  const { isLoaded: userLoaded, isSignedIn } = useUser();
-
-  if (!userLoaded) return <LoadingPage />;
 
   return (
     <>
@@ -28,24 +19,7 @@ export default function Home() {
       <main className="flex h-screen justify-center">
         <MobileTopNavbar />
         <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">
-          <div className="absolute left-0 top-0 p-[5px] ">
-            {!isSignedIn && (
-              <SignInButton>
-                <Button>Sign In</Button>
-              </SignInButton>
-            )}
-            {!!isSignedIn && (
-              <SignOutButton>
-                <Button>Sign Out</Button>
-              </SignOutButton>
-            )}
-          </div>
-
-          {!!isSignedIn && <ItemCreateForm />}
-
           <ItemGallery />
-
-          {/* {!!isSignedIn && <ItemsTable />} */}
         </div>
       </main>
       <Toaster position="top-center" />
