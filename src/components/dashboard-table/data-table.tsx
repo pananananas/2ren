@@ -80,6 +80,8 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   });
+  
+  
 
   return (
     <div>
@@ -179,6 +181,9 @@ export function DataTable<TData, TValue>({
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
+
+
+
         </div>
         <Button
           variant="outline"

@@ -25,7 +25,7 @@ export const MobileRadioSwitch = () => {
   return (
     <div className="">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-16 w-60 items-center gap-3 pl-6">
+        <DropdownMenuTrigger className="flex h-16 w-60 items-center gap-3 pl-6 focus-visible:outline-none">
           <IconMenu className="h-7 w-7" />
           <span className="text-xl">{currentSite}</span>
         </DropdownMenuTrigger>

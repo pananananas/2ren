@@ -15,7 +15,7 @@ export default function DataTableCard() {
     .map((item) => item.display)
     .filter((item) => item).length;
   return (
-    <div className="flex w-full flex-col rounded-lg bg-white shadow-lg ">
+    <div className="flex w-full flex-col rounded-[20px] bg-white shadow-lg ">
       <span className="flex w-full flex-col px-6 pt-6 text-2xl">
         Items
         <span className="pt-1 text-sm text-gray-500">
