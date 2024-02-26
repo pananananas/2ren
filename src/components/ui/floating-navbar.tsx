@@ -74,7 +74,7 @@ export const FloatingNav = ({ className }: { className?: string }) => {
             height={50}
           />
         )} */}
-        {isMobile && <MobileRadioSwitch />}
+        {isMobile && <MobileRadioSwitch/>}
         {!isMobile && (
           <Link
             href="/"
