@@ -204,4 +204,24 @@ export const itemsRouter = createTRPCRouter({
 
       return item;
     }),
+
+  editDisplay: privateProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        display: z.boolean(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const item = await ctx.db.item.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          display: input.display,
+        },
+      });
+
+      return item;
+    }),
 });

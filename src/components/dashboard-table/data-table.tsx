@@ -51,11 +51,11 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({
       id: true,
       name: true,
-      material: true,
+      material: false,
       category: true,
-      price: false,
+      price: true,
       currency: false,
-      amount: false,
+      amount: true,
       description: false,
       color: false,
       createdAt: false,
@@ -99,8 +99,8 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        <ItemCreateForm />
         <ClearUntrackedUptFiles />
+        <ItemCreateForm variant="small" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

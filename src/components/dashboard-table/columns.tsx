@@ -1,8 +1,13 @@
 "use client";
+import { ItemDeleteAlert } from "../item-manipulation/item-delete-alert";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ItemEdit } from "../item-manipulation/item-edit";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
+import { Button } from "../ui/button";
+import { Switch } from "../ui/switch";
+import { api } from "~/utils/api";
+import { z } from "zod";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,10 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-
-// This type is used to define the shape of our data.
-import { z } from "zod";
-import { api } from "~/utils/api";
+import { toast } from "sonner";
 
 const itemTableSchema = z.object({
   id: z.number(),
@@ -109,23 +111,40 @@ export const columns: ColumnDef<ItemTable>[] = [
   // },
   {
     accessorKey: "display",
-    header: "Display",
+    header: "Visibility",
+    cell: ({ row }) => {
+
+      const { mutate } = api.items.editDisplay.useMutation({
+        onSuccess: () => {
+          toast("Changed visibility!", {
+            description: "Changed visibility of an item",
+          });
+        },
+        onError: (error) => {
+          toast("Item failed to be edited!", {
+            description: `ERROR! ${error.message}`,
+          });
+        },
+      });
+
+      return (
+        <Switch
+          checked={row.original.display}
+          onCheckedChange={(value) => {
+            mutate({
+              id: row.original.id,
+              display: value,
+            });
+          }}
+        />
+      );
+    },
   },
   {
     id: "actions",
     cell: ({ row }) => {
       const item = row.original;
-      const ctx = api.useUtils();
-      const { mutate: deleteItem } = api.items.delete.useMutation({
-        onSuccess: () => {
-          // Invalidate and refetch the items list
-          void ctx.items.getAll.invalidate();
-        },
-      });
-      const handleDelete = () => {
-        // Call the delete mutation
-        deleteItem(item.id);
-      };
+      const itemImages = item;
 
       return (
         <DropdownMenu>
@@ -138,16 +157,16 @@ export const columns: ColumnDef<ItemTable>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(item.material)}
+              onClick={() => navigator.clipboard.writeText(item.name)}
             >
-              Copy material
+              Copy name
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              Edit item
+              {/* <ItemEdit item={item}  isDesktop={true} /> */}
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleDelete}>
-              <span className="text-red-600">Delete item</span>
+            <DropdownMenuItem>
+              <ItemDeleteAlert itemId={item.id} />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

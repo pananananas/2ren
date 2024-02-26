@@ -13,7 +13,7 @@ import { api } from "~/utils/api";
 import Image from "next/image";
 import { toast } from "sonner";
 
-import { set, z } from "zod";
+import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -415,7 +415,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                       />
 
                       <Label htmlFor="display-item">
-                        Display item on home page
+                        Visibility of an item on home page
                       </Label>
                     </div>
                     <FormMessage />
@@ -707,7 +707,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                     />
 
                     <Label htmlFor="display-item">
-                      Display item on home page
+                      Visibility of an item on home page
                     </Label>
                   </div>
                   <FormMessage />

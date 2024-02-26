@@ -69,6 +69,8 @@ const formSchema = z.object({
 const buttonVariants = {
   default: "",
   rounded: "rounded-full ",
+  small:
+    "border border-input bg-background hover:bg-accent hover:text-accent-foreground text-black",
   // Add more variants as needed
 };
 
@@ -416,7 +418,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                       />
 
                       <Label htmlFor="display-item">
-                        Display item on home page
+                        Visibility of an item on home page
                       </Label>
                     </div>
                     <FormMessage />
@@ -703,7 +705,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                     />
 
                     <Label htmlFor="display-item">
-                      Display item on home page
+                      Visibility of an item on home page
                     </Label>
                   </div>
                   <FormMessage />
