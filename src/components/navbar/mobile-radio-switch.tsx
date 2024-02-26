@@ -1,17 +1,7 @@
-import { ItemCreateForm } from "../item-manipulation/item-create-form";
+import { useRouter } from "next/router";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import React, { useState, useEffect } from "react";
-import { Button } from "~/components/ui/button";
-import { useMediaQuery } from "usehooks-ts";
-import { Search } from "../navbar/search";
-import { cn } from "~/utils/cn";
+import React from "react";
 import Link from "next/link";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValueEvent,
-} from "framer-motion";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,58 +10,63 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
+import { IconMenu } from "../icons/icon-menu";
 
 export const MobileRadioSwitch = () => {
   const { isSignedIn } = useUser();
+  const router = useRouter();
+  const currentSite =
+    router.pathname === "/"
+      ? "Home"
+      : router.pathname === "/dashboard"
+        ? "Dashboard"
+        : "Contact";
+
   return (
-    <div className="w-60 pl-8">
+    <div className="">
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button className="w-24"> open </Button>
+        <DropdownMenuTrigger className="flex h-16 w-60 items-center gap-3 pl-6">
+          <IconMenu className="h-7 w-7" />
+          <span className="text-xl">{currentSite}</span>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent className="w-48">
           <DropdownMenuLabel className="">My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="pl-4">
-            {!isSignedIn && (
-              <SignInButton>
-                Sign in
-                {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
-              </SignInButton>
-            )}
-            {!!isSignedIn && (
-              <SignOutButton>
-                Log out
-                {/* <span className="absolute inset-x-0 -bottom-px mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-emerald-800  to-transparent" /> */}
-              </SignOutButton>
-            )}
+          <DropdownMenuItem className="p-0 pl-4 ">
+            <div className="p-2 pl-4">
+              {!isSignedIn && <SignInButton>Sign in</SignInButton>}
+              {!!isSignedIn && <SignOutButton>Log out</SignOutButton>}
+            </div>
           </DropdownMenuItem>
-          <DropdownMenuItem className="pl-4">Settings</DropdownMenuItem>
-          <DropdownMenuSeparator />
+
           <DropdownMenuLabel className="">Website</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="pl-4 hover:bg-green-400">
-            <Link href="/" className="relative flex items-center space-x-1  ">
+
+          <DropdownMenuItem className="p-0 pl-4 ">
+            <Link
+              href="/"
+              className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
+            >
               <span className="block text-sm">Home</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem className="pl-4 hover:bg-green-400">
-            <Link
-              href="/dashboard"
-              className="relative flex items-center space-x-1 "
-            >
-              <span className="block text-sm">Dashboard</span>
-            </Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="pl-4 hover:bg-green-400">
+          <DropdownMenuItem className="p-0 pl-4 ">
             {!!isSignedIn && (
               <Link
-                href="/contact"
-                className="relative flex items-center space-x-1  "
+                href="/dashboard"
+                className="relative flex h-full w-full items-center space-x-1 p-2 pl-4"
               >
-                <span className="block text-sm">Contact</span>
+                <span className="block text-sm">Dashboard</span>
               </Link>
             )}
+          </DropdownMenuItem>
+          <DropdownMenuItem className="p-0 pl-4 ">
+            <Link
+              href="/contact"
+              className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
+            >
+              <span className="block text-sm">Contact</span>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
