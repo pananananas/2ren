@@ -30,7 +30,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { ItemsDeleteAlert } from "../item-manipulation/item-delete-alert";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -60,6 +59,8 @@ export function DataTable<TData, TValue>({
       updatedAt: false,
       authorID: false,
       display: true,
+      delete: true,
+      edit: true,
     });
   const [rowSelection, setRowSelection] = React.useState({});
 

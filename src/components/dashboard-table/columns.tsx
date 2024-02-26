@@ -1,8 +1,8 @@
 "use client";
-import { ItemDeleteAlert, ItemDeleteAlertIcon } from "../item-manipulation/item-delete-alert";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { ItemEdit } from "../item-manipulation/item-edit";
+import { ItemEditDataTable } from "../item-manipulation/item-edit-datatable";
+import { ItemDeleteAlertIcon } from "../item-manipulation/item-delete-alert";
 import type { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
@@ -33,6 +33,14 @@ const itemTableSchema = z.object({
   description: z.string(),
   authorID: z.string(),
   display: z.boolean(),
+  images: z.array(
+    z.object({
+      id: z.number(),
+      imageUrl: z.string(),
+      key: z.string(),
+      itemId: z.number(),
+    })
+  ),
 });
 
 export type ItemTable = z.infer<typeof itemTableSchema>;
@@ -110,7 +118,6 @@ export const columns: ColumnDef<ItemTable>[] = [
     accessorKey: "display",
     header: "Visibility",
     cell: ({ row }) => {
-
       const { mutate } = api.items.editDisplay.useMutation({
         onSuccess: () => {
           toast("Changed visibility!", {
@@ -137,21 +144,28 @@ export const columns: ColumnDef<ItemTable>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "edit",
-  //   header: "Edit",
-  //   cell: ({ row }) => {
-  //     return <ItemEditDataTable item={row.original} />;
-  //   }
-  // },
+  {
+    accessorKey: "edit",
+    header: "Edit",
+    cell: ({ row }) => {
+      return (
+        <ItemEditDataTable
+          item={row.original}
+          itemImages={row.original.images}
+          isDesktop={null}
+          selectedItemId={null}
+        />
+      );
+    },
+  },
   {
     accessorKey: "delete",
     header: "Delete",
     cell: ({ row }) => {
       return <ItemDeleteAlertIcon itemId={row.original.id} />;
-    }
+    },
   },
-  
+
   // {
   //   id: "actions",
   //   cell: ({ row }) => {

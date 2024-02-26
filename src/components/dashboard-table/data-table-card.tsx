@@ -5,9 +5,16 @@ import { api } from "~/utils/api";
 
 export default function DataTableCard() {
   const { data, error, isLoading } = api.items.getAll.useQuery();
-  // const { itemImages } = api.itemImages.getAll.useQuery();
+  const { data: itemImages } = api.itemImages.getAll.useQuery();
 
-  const items = data ? data.map((entry) => entry.item) : [];
+  const images = itemImages ? itemImages : [];
+  const items = data
+    ? data.map((entry) => {
+        const item = entry.item;
+        const itemImages = images.filter((image) => image.itemId === item.id);
+        return { ...item, images: itemImages };
+      })
+    : [];
 
   if (isLoading) return <LoadingPage />;
   if (error) return <div>An error has occurred: {error.message}</div>;
@@ -30,3 +37,28 @@ export default function DataTableCard() {
     </div>
   );
 }
+// items have this structure:
+// const items: {
+//   id: number;
+//   name: string;
+//   createdAt: Date;
+//   updatedAt: Date;
+//   color: string;
+//   price: string;
+//   currency: string;
+//   amount: string;
+//   category: string;
+//   material: string;
+//   description: string;
+//   authorID: string;
+//   display: boolean;
+
+
+
+// but i want for each item to have an array of images corresponding to it, for reference images have this structure:
+// const images: {
+//   id: number;
+//   key: string;
+//   imageUrl: string;
+//   itemId: number;
+// }[]

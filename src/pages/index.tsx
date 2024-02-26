@@ -14,7 +14,7 @@ export default function Home() {
         
       </Head>
       <main className="flex h-screen justify-center">
-        <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">
+        <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-3/4">
           <ItemGallery />
         </div>
       </main>
