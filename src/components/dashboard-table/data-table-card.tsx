@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 
 export default function DataTableCard() {
   const { data, error, isLoading } = api.items.getAll.useQuery();
+  // const { itemImages } = api.itemImages.getAll.useQuery();
 
   const items = data ? data.map((entry) => entry.item) : [];
 

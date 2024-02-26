@@ -1,5 +1,5 @@
 "use client";
-import { ItemDeleteAlert } from "../item-manipulation/item-delete-alert";
+import { ItemDeleteAlert, ItemDeleteAlertIcon } from "../item-manipulation/item-delete-alert";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { ItemEdit } from "../item-manipulation/item-edit";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -7,16 +7,17 @@ import { Checkbox } from "../ui/checkbox";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { api } from "~/utils/api";
-import { z } from "zod";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { toast } from "sonner";
+import { z } from "zod";
+
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "../ui/dropdown-menu";
 
 const itemTableSchema = z.object({
   id: z.number(),
@@ -105,10 +106,6 @@ export const columns: ColumnDef<ItemTable>[] = [
     accessorKey: "color",
     header: "Color",
   },
-  // {
-  //   accessorKey: "authorID",
-  //   header: "Author ID",
-  // },
   {
     accessorKey: "display",
     header: "Visibility",
@@ -140,37 +137,53 @@ export const columns: ColumnDef<ItemTable>[] = [
       );
     },
   },
+  // {
+  //   accessorKey: "edit",
+  //   header: "Edit",
+  //   cell: ({ row }) => {
+  //     return <ItemEditDataTable item={row.original} />;
+  //   }
+  // },
   {
-    id: "actions",
+    accessorKey: "delete",
+    header: "Delete",
     cell: ({ row }) => {
-      const item = row.original;
-      const itemImages = item;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(item.name)}
-            >
-              Copy name
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              {/* <ItemEdit item={item}  isDesktop={true} /> */}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <ItemDeleteAlert itemId={item.id} />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+      return <ItemDeleteAlertIcon itemId={row.original.id} />;
+    }
   },
+  
+  // {
+  //   id: "actions",
+  //   cell: ({ row }) => {
+  //     const item = row.original;
+  //     const itemImages = item;
+
+  //     return (
+  //       <DropdownMenu modal={true}>
+  //         <DropdownMenuTrigger asChild>
+  //           <Button variant="ghost" className="h-8 w-8 p-0">
+  //             <span className="sr-only">Open menu</span>
+  //             <MoreHorizontal className="h-4 w-4" />
+  //           </Button>
+  //         </DropdownMenuTrigger>
+  //         <DropdownMenuContent align="end">
+  //           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+  //           <DropdownMenuItem
+  //             onClick={() => navigator.clipboard.writeText(item.name)}
+  //           >
+  //             Copy name
+  //           </DropdownMenuItem>
+  //           <DropdownMenuSeparator />
+  //           <DropdownMenuItem>
+  //             {/* <ItemEdit item={item}  isDesktop={true} /> */}
+  //           </DropdownMenuItem>
+  //           <DropdownMenuItem>
+  //             {/* <ItemDeleteAlertNoButton itemId={item.id} /> */}
+
+  //           </DropdownMenuItem>
+  //         </DropdownMenuContent>
+  //       </DropdownMenu>
+  //     );
+  //   },
+  // },
 ];

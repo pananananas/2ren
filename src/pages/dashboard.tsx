@@ -26,6 +26,7 @@ const Dashboard: React.FC = () => {
               Dashboard
             </span>
             <DataTableCard />
+            <div className="h-20 w-full"></div>
           </div>
         </div>
       </div>

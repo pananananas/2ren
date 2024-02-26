@@ -224,4 +224,37 @@ export const itemsRouter = createTRPCRouter({
 
       return item;
     }),
+    
+    deleteMultiple: privateProcedure
+    .input(z.array(z.number()))
+    .mutation(async ({ ctx, input }) => {
+      const itemImages = await ctx.db.itemImage.findMany({
+        where: {
+          itemId: {
+            in: input,
+          },
+        },
+      });
+
+      await Promise.all(
+        itemImages.map(async (itemImage) => {
+          await utapi.deleteFiles(itemImage.key);
+          return ctx.db.itemImage.delete({
+            where: {
+              id: itemImage.id,
+            },
+          });
+        }),
+      );
+
+      const items = await ctx.db.item.deleteMany({
+        where: {
+          id: {
+            in: input,
+          },
+        },
+      });
+
+      return items;
+    }),
 });
