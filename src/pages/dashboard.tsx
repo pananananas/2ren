@@ -22,11 +22,10 @@ const Dashboard: React.FC = () => {
       <div className="flex h-screen justify-center">
         <div className="flex h-full w-full flex-col gap-2  p-4 lg:w-2/3">
           <div className="flex flex-wrap justify-center gap-4 pb-5 md:justify-start md:gap-5">
-            <span className=" flex w-full justify-center pb-3 pt-20 text-3xl font-bold md:w-full md:justify-start md:pb-5 md:pt-32">
+            <span className=" flex w-full justify-start pb-3 pl-4 pt-20 text-3xl font-bold md:w-full md:pb-5 md:pl-2 md:pt-32">
               Dashboard
             </span>
             <DataTableCard />
-
           </div>
         </div>
       </div>

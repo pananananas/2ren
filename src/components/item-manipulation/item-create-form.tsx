@@ -68,7 +68,8 @@ const formSchema = z.object({
 
 const buttonVariants = {
   default: "",
-  rounded: "rounded-full ",
+  rounded:
+    "sm:rounded-full rounded-[20px] h-[50px] sm:h-10 bg-emerald-800 sm:bg-primary text-primary-foreground sm:hover:bg-primary/90 px-5 hover:bg-emerald-700",
   small:
     "border border-input bg-background hover:bg-accent hover:text-accent-foreground text-black",
   // Add more variants as needed

@@ -27,7 +27,7 @@ export default function ItemGallery() {
 
   return (
     <div className="flex flex-wrap justify-center gap-4 pb-5 md:justify-start md:gap-5">
-      <span className=" flex w-full justify-center pb-3 pt-20 text-3xl font-bold md:w-full md:justify-start md:pb-5 md:pt-32">
+      <span className=" flex w-full pl-4 md:pl-2 pb-3 pt-20 text-3xl font-bold md:w-full justify-start md:pb-5 md:pt-32">
         Available products
       </span>
       {itemData.map(({ item }) => {
