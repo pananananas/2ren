@@ -43,8 +43,8 @@ export function Search() {
         className="relative rounded-full border border-neutral-200 bg-transparent px-[9px] text-sm font-medium text-black hover:bg-gray-50"
         onClick={() => setOpen(true)}
       >
-        <p className="flex items-center gap-10 align-middle text-sm text-gray-400">
-          <span className="pl-1 flex items-center gap-1 align-middle">
+        <p className="flex items-center gap-10 md:gap-32 align-middle text-sm text-gray-400">
+          <span className="flex items-center gap-1 pl-1 align-middle">
             <IconSearch className="h-3.5 w-3.5 " />
             Search{" "}
           </span>

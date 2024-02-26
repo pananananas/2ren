@@ -1,5 +1,8 @@
 "use client";
 import { ClearUntrackedUptFiles } from "~/components/item-manipulation/clear-untracked-upt-files";
+import { ItemCreateForm } from "../item-manipulation/item-create-form";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import * as React from "react";
 import {
   type ColumnDef,
@@ -13,7 +16,6 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -22,17 +24,12 @@ import {
   TableHeader,
   TableRow,
 } from "src/components/ui/table";
-
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { ItemCreateForm } from "../item-manipulation/item-create-form";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -86,16 +83,16 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center gap-2 py-4">
+      <div className="flex items-center gap-2 py-3">
         {/* Header */}
         <Input
           name=""
           placeholder="Filter materials..."
           value={
-            (table.getColumn("material")?.getFilterValue() as string) ?? ""
+            (table.getColumn("name")?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("material")?.setFilterValue(event.target.value)
+            table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
@@ -184,6 +181,7 @@ export function DataTable<TData, TValue>({
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
+
         </div>
         <Button
           variant="outline"

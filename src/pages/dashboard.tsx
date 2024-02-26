@@ -1,8 +1,8 @@
-import ItemsTable from "~/components/dashboard-table/items-data-table";
 import { useUser } from "@clerk/nextjs";
 import { LoadingPage } from "~/components/loading";
 import { api } from "~/utils/api";
 import router from "next/router";
+import DataTableCard from "~/components/dashboard-table/data-table-card";
 
 const Dashboard: React.FC = () => {
   api.items.getAll.useQuery();
@@ -25,7 +25,8 @@ const Dashboard: React.FC = () => {
             <span className=" flex w-full justify-center pb-3 pt-20 text-3xl font-bold md:w-full md:justify-start md:pb-5 md:pt-32">
               Dashboard
             </span>
-            <ItemsTable />
+            <DataTableCard />
+
           </div>
         </div>
       </div>

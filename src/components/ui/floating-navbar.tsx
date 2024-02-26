@@ -109,7 +109,7 @@ export const FloatingNav = ({ className }: { className?: string }) => {
           </Link>
         )}
 
-        <div className="flex gap-2 pl-0 md:pl-20 lg:pl-40">
+        <div className="flex gap-2 pl-0 md:pl-20 lg:pl-52">
           {!isMobile && <Search />}
           {!isSignedIn && (
             <SignInButton>
