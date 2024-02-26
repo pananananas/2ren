@@ -166,43 +166,41 @@ export const itemsRouter = createTRPCRouter({
           ...itemData,
         },
       });
-      // TODO: Update images
-      // const itemImages = await ctx.db.itemImage.findMany({
-      //   where: {
-      //     itemId: item.id,
-      //   },
-      // });
 
-      // await Promise.all(
-      //   itemImages.map(async (itemImage) => {
-      //     await utapi.deleteFiles(itemImage.key);
-      //     return ctx.db.itemImage.deleteMany({
-      //       where: {
-      //         id: itemImage.id,
-      //       },
-      //     });
-      //   }),
-      // );
-      // console.log("Deleted images", itemImages);
+      // Delete old images
+      const oldImages = await ctx.db.itemImage.findMany({
+        where: {
+          itemId: item.id,
+        },
+      });
 
-      // Filter out existing images
-      // const newImages = images.filter((imageData) => !imageData.key);
+      await Promise.all(
+        oldImages.map(async (itemImage) => {
+          await utapi.deleteFiles(itemImage.key);
+          return ctx.db.itemImage.delete({
+            where: {
+              id: itemImage.id,
+            },
+          });
+        }),
+      );
 
-      // // Create ItemImage records for each new image
-      // const imageRecords = newImages.map((imageData) => ({
-      //   imageUrl: imageData.imageUrl,
-      //   key: imageData.key,
-      //   itemId: item.id,
-      // }));
+      // Create ItemImage records for each new image
 
-      // // Use Promise.all for concurrent creation of item image records
-      // await Promise.all(
-      //   imageRecords.map((imgData) =>
-      //     ctx.db.itemImage.create({
-      //       data: imgData,
-      //     }),
-      //   ),
-      // );
+      const imageRecords = images.map((imageData) => ({
+        imageUrl: imageData.imageUrl,
+        key: imageData.key,
+        itemId: item.id,
+      }));
+
+      // Use Promise.all for concurrent creation of item image records
+      await Promise.all(
+        imageRecords.map((imgData) =>
+          ctx.db.itemImage.create({
+            data: imgData,
+          }),
+        ),
+      );
 
       return item;
     }),

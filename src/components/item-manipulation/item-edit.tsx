@@ -13,7 +13,7 @@ import { api } from "~/utils/api";
 import Image from "next/image";
 import { toast } from "sonner";
 
-import { z } from "zod";
+import { set, z } from "zod";
 import {
   Form,
   FormControl,
@@ -85,6 +85,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
     },
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const meta = document.createElement("meta");
@@ -129,7 +130,8 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
     },
   );
 
-  const onCancel = () => {          // TODO: This function is sketchy, try to simplify it
+  const onCancel = () => {
+    // TODO: This function is sketchy, try to simplify it
     const imagesChanged = form
       .getValues("images")
       .some(
@@ -168,7 +170,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
               <div className="flex w-full gap-4">
                 <div className="w-1/2 ">
                   <UploadDropzone
-                    className="ut-label:text-m p-3  ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+                    className="ut-label:text-m p-3  ut-button:bg-gray-400 ut-label:text-gray-900 ut-button:ut-uploading:after:bg-gray-900"
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
                       res.forEach((file) => {
@@ -193,9 +195,9 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                     }}
                     config={{ mode: "auto" }}
                     content={{
-                      uploadIcon({ uploadProgress }) {
-                        console.log("uploadProgress", uploadProgress);
-      
+                      uploadIcon({ isUploading }) {
+                        setUploading(isUploading);
+
                         // if form images is not empty return "Uploaded"
                         if (form.getValues("images").length > 0) {
                           return (
@@ -222,7 +224,6 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                                             (img) => img.key !== image.key,
                                           );
                                         form.setValue("images", updatedImages);
-                                        deleteImage(image.key);
                                       }}
                                     >
                                       <svg
@@ -431,7 +432,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                     >
                       Cancel
                     </Button>
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button type="submit" disabled={isSubmitting || uploading}>
                       Save
                     </Button>
                   </div>
@@ -610,7 +611,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
               )}
             />
             <UploadDropzone
-              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 ut-allowed-content:ut-uploading:text-red-400"
+              className="ut-label:text-m p-3  ut-button:bg-gray-400 ut-label:text-gray-900 ut-button:ut-uploading:after:bg-gray-900"
               endpoint="imageUploader"
               onClientUploadComplete={(res) => {
                 res.forEach((file) => {
@@ -641,18 +642,15 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
               }}
               config={{ mode: "auto" }}
               content={{
-                uploadIcon({ uploadProgress }) {
-                  console.log("uploadProgress", uploadProgress);
+                uploadIcon({ isUploading }) {
+                  setUploading(isUploading);
 
                   // if form images is not empty return "Uploaded"
                   if (form.getValues("images").length > 0) {
                     return (
                       <div className="flex items-center gap-2">
                         {form.getValues("images").map((image) => (
-                          <div
-                            key={image.key}
-                            className="flex items-center "
-                          >
+                          <div key={image.key} className="flex items-center ">
                             <div key={image.key} className="relative ">
                               <Image
                                 src={image.imageUrl}
@@ -666,11 +664,8 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                                 onClick={() => {
                                   const updatedImages = form
                                     .getValues("images")
-                                    .filter(
-                                      (img) => img.key !== image.key,
-                                    );
+                                    .filter((img) => img.key !== image.key);
                                   form.setValue("images", updatedImages);
-                                  deleteImage(image.key);
                                 }}
                               >
                                 <svg
@@ -732,7 +727,7 @@ export const ItemEdit = ({ item, itemImages, isDesktop }: ItemCardProps) => {
                   </Button>
                   <Button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || uploading}
                     className="w-1/2"
                   >
                     Save

@@ -94,6 +94,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
   });
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const meta = document.createElement("meta");
@@ -169,7 +170,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
               <div className="flex w-full gap-4">
                 <div className="w-1/2 ">
                   <UploadDropzone
-                    className="ut-label:text-m p-3  ut-button:bg-gray-300 ut-button: ut-label:text-gray-900  ut-upload-icon:text-gray-300 "
+                    className="ut-label:text-m p-3  ut-button:bg-gray-400 ut-label:text-gray-900 ut-button:ut-uploading:after:bg-gray-900"
                     endpoint="imageUploader"
                     onClientUploadComplete={(res) => {
                       res.forEach((file) => {
@@ -194,8 +195,8 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                     }}
                     config={{ mode: "auto" }}
                     content={{
-                      uploadIcon({ uploadProgress }) {
-                        console.log("uploadProgress", uploadProgress);
+                      uploadIcon({ isUploading }) {
+                        setUploading(isUploading);
 
                         // if form images is not empty return "Uploaded"
                         if (form.getValues("images").length > 0) {
@@ -428,7 +429,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                     Cancel
                   </Button>
                 </DialogClose>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting || uploading}>
                   Add item
                 </Button>
               </DialogFooter>
@@ -605,7 +606,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
               )}
             />
             <UploadDropzone
-              className="ut-label:text-m p-3 py-1 ut-button:bg-gray-900 ut-label:text-gray-900 "
+              className="ut-label:text-m p-3  ut-button:bg-gray-400 ut-label:text-gray-900 ut-button:ut-uploading:after:bg-gray-900"
               endpoint="imageUploader"
               onClientUploadComplete={(res) => {
                 res.forEach((file) => {
@@ -636,18 +637,15 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
               }}
               config={{ mode: "auto" }}
               content={{
-                uploadIcon({ uploadProgress }) {
-                  console.log("uploadProgress", uploadProgress);
+                uploadIcon({ isUploading }) {
+                  setUploading(isUploading);
 
                   // if form images is not empty return "Uploaded"
                   if (form.getValues("images").length > 0) {
                     return (
                       <div className="flex items-center gap-2">
                         {form.getValues("images").map((image) => (
-                          <div
-                            key={image.key}
-                            className="flex items-center "
-                          >
+                          <div key={image.key} className="flex items-center ">
                             <div key={image.key} className="relative ">
                               <Image
                                 src={image.imageUrl}
@@ -661,9 +659,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                                 onClick={() => {
                                   const updatedImages = form
                                     .getValues("images")
-                                    .filter(
-                                      (img) => img.key !== image.key,
-                                    );
+                                    .filter((img) => img.key !== image.key);
                                   form.setValue("images", updatedImages);
                                   deleteImage(image.key);
                                 }}
@@ -727,7 +723,7 @@ export function ItemCreateForm({ variant = "default" }: ItemCreateFormProps) {
                   </Button>
                   <Button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || uploading}
                     className="w-1/2"
                   >
                     Add item
