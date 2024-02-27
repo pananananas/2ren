@@ -31,7 +31,7 @@ const Dashboard: React.FC = () => {
               Dashboard
             </span>
             <DataTableCard />
-            <div className="h-20 w-full"></div>
+            <div className="h-32 w-full"></div>
           </div>
         </div>
       </div>

@@ -18,13 +18,13 @@ export const ItemCard = ({
       >
         {/* Display the first image for this item, if available */}
         {itemImages.length > 0 && (
-          <div className="relative h-[130px] w-full rounded-[5px]">
+          <div className="relative h-[110px] xs:h-[130px] w-full rounded-[5px]">
             <Image
               src={itemImages[0]?.imageUrl ?? "/path/to/default/image.png"} // Use optional chaining and provide a fallback src
               alt={item.name}
               width={150}
               height={130}
-              className="h-[130px] w-[190px] rounded-[5px] object-cover"
+              className="h-[110px] xs:h-[130px] w-[190px] rounded-[5px] object-cover"
             />
             <div className="absolute bottom-0 right-0 z-10 p-[5px]">
               <div className="flex gap-1">

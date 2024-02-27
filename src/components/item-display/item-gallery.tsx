@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LoadingPage } from "~/components/loading";
 
-
 export default function ItemGallery() {
   const router = useRouter();
   const { itemId } = router.query;
@@ -26,8 +25,8 @@ export default function ItemGallery() {
   //   console.log("imagesData", imagesData);
 
   return (
-    <div className="flex flex-wrap justify-center gap-3 pb-5 md:justify-start xs:gap-4 md:gap-5">
-      <span className=" flex w-full pl-4 md:pl-2 pb-3 pt-20 text-3xl font-bold md:w-full justify-start md:pb-5 md:pt-32">
+    <div className="xs:gap-4 flex flex-wrap justify-center gap-3 pb-5 md:justify-start md:gap-5">
+      <span className=" flex w-full justify-start pb-3 pl-4 pt-20 text-3xl font-bold md:w-full md:pb-5 md:pl-2 md:pt-32">
         Available products
       </span>
       {itemData.map(({ item }) => {
@@ -46,6 +45,7 @@ export default function ItemGallery() {
           />
         );
       })}
+      <div className="h-32 w-full" />
     </div>
   );
 }
