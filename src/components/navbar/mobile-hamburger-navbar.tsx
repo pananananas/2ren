@@ -40,7 +40,6 @@ export const MobileHamburgerNavbar = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 shadow-none">
           <DropdownMenuLabel className="">Navigation menu</DropdownMenuLabel>
-          
 
           {/* <DropdownMenuLabel className="">Navigation</DropdownMenuLabel> */}
           <DropdownMenuSeparator />
@@ -54,18 +53,20 @@ export const MobileHamburgerNavbar = () => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="p-0  ">
-            {!!isSignedIn && (
-              <Link
-                href="/dashboard"
-                className="relative flex h-full w-full items-center space-x-1 p-2 pl-4"
-              >
-                <span className="block text-sm">Dashboard</span>
-              </Link>
-            )}
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="p-0  ">
+          {!!isSignedIn && (
+            <>
+              <DropdownMenuItem className="p-0  ">
+                <Link
+                  href="/dashboard"
+                  className="relative flex h-full w-full items-center space-x-1 p-2 pl-4"
+                >
+                  <span className="block text-sm">Dashboard</span>
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
+          <DropdownMenuItem className="p-0">
             <Link
               href="/contact"
               className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
@@ -74,10 +75,28 @@ export const MobileHamburgerNavbar = () => {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="p-0  ">
-            <div className="p-2 pl-4">
-              {!isSignedIn && <SignInButton>Sign in</SignInButton>}
-              {!!isSignedIn && <SignOutButton>Log out</SignOutButton>}
+          <DropdownMenuItem className="h-full w-full p-0">
+            <div className="w-full p-2 pl-4">
+              {!isSignedIn && (
+                <SignInButton>
+                  <Button
+                    variant="ghost"
+                    className="flex h-[20px] w-full justify-start p-0"
+                  >
+                    Sign in
+                  </Button>
+                </SignInButton>
+              )}
+              {!!isSignedIn && (
+                <SignOutButton>
+                  <Button
+                    variant="ghost"
+                    className="flex h-[20px] w-full justify-start p-0"
+                  >
+                    Log out
+                  </Button>
+                </SignOutButton>
+              )}
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>

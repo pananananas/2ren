@@ -13,7 +13,7 @@ export default function ItemGallery() {
   useEffect(() => {
     setSelectedItemId(itemId ? Number(itemId) : null);
   }, [itemId]);
-  console.log("selectedItemId", selectedItemId);
+  // console.log("selectedItemId", selectedItemId);
   const { data: itemData, isLoading: dataLoading } =
     api.items.getAll.useQuery();
   const { data: imagesData, isLoading: imagesLoading } =
