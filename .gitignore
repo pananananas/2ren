@@ -48,3 +48,5 @@ yarn-error.log*
 # ignore todo file and plans folder
 TODO.md
 /plans
+
+/pscale_dump_2ren-db_main_20240227_092840
