@@ -1,3 +1,4 @@
+import { MobileDataTable } from "./mobile-data-table";
 import { useMediaQuery } from "usehooks-ts";
 import { DataTable } from "./data-table";
 import { LoadingPage } from "../loading";
@@ -41,6 +42,11 @@ export default function DataTableCard() {
       {isDesktop && (
         <div className="container py-4">
           <DataTable columns={columns} data={items} />
+        </div>
+      )}
+      {!isDesktop && (
+        <div className="px-4 py-2">
+          <MobileDataTable columns={columns} data={items} />
         </div>
       )}
     </div>
