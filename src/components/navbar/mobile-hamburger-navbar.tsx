@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -12,8 +12,11 @@ import {
 } from "~/components/ui/dropdown-menu";
 // import { IconMenu } from "../icons/icon-menu";
 import HamIcon from "../icons/icon-hamburger";
+import { Button } from "../ui/button";
+// import { IconMenu } from "../icons/icon-menu";
 
 export const MobileHamburgerNavbar = () => {
+  const [isActive, setIsActive] = useState(false);
   const { isSignedIn } = useUser();
   const router = useRouter();
   const currentSite =
@@ -23,28 +26,26 @@ export const MobileHamburgerNavbar = () => {
         ? "Dashboard"
         : "Contact";
 
+  const toggleClass = () => {
+    setIsActive(!isActive);
+  };
   return (
     <div className="">
-      <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-16 w-60 items-center gap-3 pl-6 focus-visible:outline-none" >
-          {/* <IconMenu className="h-7 w-7" /> */}
-          <HamIcon  />
-          <span className="text-xl">{currentSite}</span>
+      <DropdownMenu onOpenChange={toggleClass}>
+        <DropdownMenuTrigger className="flex h-[60px] w-60 items-center focus-visible:outline-none">
+          <Button variant="ghost" className="p-0 pr-16 hover:bg-transparent">
+            <HamIcon isActive={isActive} />
+            <span className="text-xl">{currentSite}</span>
+          </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-48">
-          <DropdownMenuLabel className="">My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className="p-0 pl-4 ">
-            <div className="p-2 pl-4">
-              {!isSignedIn && <SignInButton>Sign in</SignInButton>}
-              {!!isSignedIn && <SignOutButton>Log out</SignOutButton>}
-            </div>
-          </DropdownMenuItem>
+        <DropdownMenuContent className="w-56 shadow-none">
+          <DropdownMenuLabel className="">Navigation menu</DropdownMenuLabel>
+          
 
-          <DropdownMenuLabel className="">Website</DropdownMenuLabel>
+          {/* <DropdownMenuLabel className="">Navigation</DropdownMenuLabel> */}
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="p-0 pl-4 ">
+          <DropdownMenuItem className="p-0  ">
             <Link
               href="/"
               className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
@@ -52,8 +53,8 @@ export const MobileHamburgerNavbar = () => {
               <span className="block text-sm">Home</span>
             </Link>
           </DropdownMenuItem>
-          <HamIcon  />
-          <DropdownMenuItem className="p-0 pl-4 ">
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="p-0  ">
             {!!isSignedIn && (
               <Link
                 href="/dashboard"
@@ -63,13 +64,21 @@ export const MobileHamburgerNavbar = () => {
               </Link>
             )}
           </DropdownMenuItem>
-          <DropdownMenuItem className="p-0 pl-4 ">
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="p-0  ">
             <Link
               href="/contact"
               className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
             >
               <span className="block text-sm">Contact</span>
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="p-0  ">
+            <div className="p-2 pl-4">
+              {!isSignedIn && <SignInButton>Sign in</SignInButton>}
+              {!!isSignedIn && <SignOutButton>Log out</SignOutButton>}
+            </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
