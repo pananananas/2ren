@@ -29,9 +29,10 @@ export const MobileHamburgerNavbar = () => {
   const toggleClass = () => {
     setIsActive(!isActive);
   };
+  
   return (
     <div className="">
-      <DropdownMenu onOpenChange={toggleClass}>
+      <DropdownMenu onOpenChange={toggleClass} open={isActive}>
         <DropdownMenuTrigger className="flex h-[60px] w-60 items-center focus-visible:outline-none">
           <Button variant="ghost" className="p-0 pr-16 hover:bg-transparent">
             <HamIcon isActive={isActive} />
@@ -48,6 +49,7 @@ export const MobileHamburgerNavbar = () => {
             <Link
               href="/"
               className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
+              onClick={toggleClass}
             >
               <span className="block text-sm">Home</span>
             </Link>
@@ -59,6 +61,7 @@ export const MobileHamburgerNavbar = () => {
                 <Link
                   href="/dashboard"
                   className="relative flex h-full w-full items-center space-x-1 p-2 pl-4"
+                  onClick={toggleClass}
                 >
                   <span className="block text-sm">Dashboard</span>
                 </Link>
@@ -70,6 +73,7 @@ export const MobileHamburgerNavbar = () => {
             <Link
               href="/contact"
               className="relative flex h-full w-full  items-center space-x-1 p-2 pl-4"
+              onClick={toggleClass}
             >
               <span className="block text-sm">Contact</span>
             </Link>

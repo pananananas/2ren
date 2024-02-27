@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-
 type HamIconProps = {
   isActive: boolean;
 };
 
-
 const HamIcon: React.FC<HamIconProps> = ({ isActive }) => {
-  
-
   return (
     <svg
       className={`h-14 w-14 cursor-pointer ${isActive ? "rotate-45" : ""}`}
@@ -15,7 +10,6 @@ const HamIcon: React.FC<HamIconProps> = ({ isActive }) => {
         transition: "transform 400ms",
       }}
       viewBox="0 0 100 100"
-
     >
       <path
         className={`stroke-current text-neutral-900 `}
