@@ -78,3 +78,44 @@ body {
     @apply bg-background text-foreground;
   }
 } */
+
+
+/* .ham {
+  cursor: pointer;
+  transition: transform 0.4s ease-in-out;
+}
+
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 6;
+  transition: stroke-dasharray 0.4s ease-in-out, stroke-dashoffset 0.4s ease-in-out;
+}
+
+.ham7 .top {
+  stroke-dasharray: 40 160;
+}
+
+.ham7 .middle {
+  stroke-dasharray: 40 142;
+  transform-origin: 50%;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.ham7 .bottom {
+  stroke-dasharray: 40 85;
+  transform-origin: 50%;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), stroke-dashoffset 0.4s ease-in-out;
+}
+
+.ham7.active .top {
+  stroke-dashoffset: -64px;
+}
+
+.ham7.active .middle {
+  transform: rotate(90deg);
+}
+
+.ham7.active .bottom {
+  stroke-dashoffset: -64px;
+} */

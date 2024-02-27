@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
-import React from "react";
+import React, { useState } from 'react';
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -10,9 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { IconMenu } from "../icons/icon-menu";
+// import { IconMenu } from "../icons/icon-menu";
+import HamIcon from "../icons/icon-hamburger";
 
-export const MobileRadioSwitch = () => {
+export const MobileHamburgerNavbar = () => {
   const { isSignedIn } = useUser();
   const router = useRouter();
   const currentSite =
@@ -25,8 +26,9 @@ export const MobileRadioSwitch = () => {
   return (
     <div className="">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-16 w-60 items-center gap-3 pl-6 focus-visible:outline-none">
-          <IconMenu className="h-7 w-7" />
+        <DropdownMenuTrigger className="flex h-16 w-60 items-center gap-3 pl-6 focus-visible:outline-none" >
+          {/* <IconMenu className="h-7 w-7" /> */}
+          <HamIcon  />
           <span className="text-xl">{currentSite}</span>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
@@ -50,6 +52,7 @@ export const MobileRadioSwitch = () => {
               <span className="block text-sm">Home</span>
             </Link>
           </DropdownMenuItem>
+          <HamIcon  />
           <DropdownMenuItem className="p-0 pl-4 ">
             {!!isSignedIn && (
               <Link

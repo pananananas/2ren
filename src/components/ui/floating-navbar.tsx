@@ -1,3 +1,4 @@
+import { MobileHamburgerNavbar } from "../navbar/mobile-hamburger-navbar";
 import { ItemCreateForm } from "../item-manipulation/item-create-form";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import React, { useState, useEffect } from "react";
@@ -12,7 +13,6 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "framer-motion";
-import { MobileRadioSwitch } from "../navbar/mobile-radio-switch";
 
 export const FloatingNav = ({ className }: { className?: string }) => {
   const isMobile = useMediaQuery("(max-width: 639px)");
@@ -74,7 +74,7 @@ export const FloatingNav = ({ className }: { className?: string }) => {
             height={50}
           />
         )} */}
-        {isMobile && <MobileRadioSwitch/>}
+        {isMobile && <MobileHamburgerNavbar/>}
         {!isMobile && (
           <Link
             href="/"
