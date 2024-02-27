@@ -1,5 +1,7 @@
+import { ItemDeleteAlertIcon } from "../item-manipulation/item-delete-alert";
+import { ItemEditDataTable } from "../item-manipulation/item-edit-datatable";
 import { ItemDisplayCarousel } from "./item-display-carousel";
-import { type ItemCardProps } from "~/types/itemCardProps"; // Import the interface
+import { type ItemCardProps } from "~/types/itemCardProps";
 import { LoadingPage } from "~/components/loading";
 import { Button } from "~/components/ui/button";
 import { Badge } from "~/components/ui/badge";
@@ -12,8 +14,6 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "~/components/ui/drawer";
-import { ItemDeleteAlert } from "../item-manipulation/item-delete-alert";
-import { ItemEdit } from "../item-manipulation/item-edit";
 
 export const ItemDisplayContents = ({
   item,
@@ -27,15 +27,15 @@ export const ItemDisplayContents = ({
   return (
     <div className="mx-auto w-full max-w-sm">
       {!!isSignedIn && user.id === item.authorID && (
-        <div className="flex justify-end gap-4 py-2 p-4">
-          <ItemEdit
+        <div className="flex justify-end gap-">
+          <ItemEditDataTable
             key={item.id}
             item={item}
             itemImages={itemImages}
             selectedItemId={selectedItemId}
             isDesktop={isDesktop}
           />
-          <ItemDeleteAlert itemId={item.id} />
+          <ItemDeleteAlertIcon itemId={item.id} />
         </div>
       )}
 
