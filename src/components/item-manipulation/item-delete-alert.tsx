@@ -131,7 +131,7 @@ export function ItemDeleteAlertIcon({ itemId }: { itemId: number }) {
   );
 }
 
-export function ItemsDeleteAlert({ itemIds }: { itemIds: number[] }) {
+export function ItemsDeleteAlert({ itemIds, resetSelection }: { itemIds: number[], resetSelection: () => void }) {
   const ctx = api.useUtils();
 
   const { mutate: deleteItem } = api.items.deleteMultiple.useMutation({
@@ -140,6 +140,7 @@ export function ItemsDeleteAlert({ itemIds }: { itemIds: number[] }) {
       toast("Item deleted.", {
         description: "The item has been successfully deleted.",
       });
+      resetSelection();
     },
     onError: (error) => {
       toast("Failed to delete item.", {
@@ -158,7 +159,7 @@ export function ItemsDeleteAlert({ itemIds }: { itemIds: number[] }) {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="text-red-500 hover:text-red-500">
-          Delete
+          Delete selected
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent className="max-w-sm">

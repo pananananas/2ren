@@ -1,5 +1,6 @@
 "use client";
 import { ClearUntrackedUptFiles } from "~/components/item-manipulation/clear-untracked-upt-files";
+import { ItemsDeleteAlert } from "../item-manipulation/item-delete-alert";
 import { ItemCreateForm } from "../item-manipulation/item-create-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -30,6 +31,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+
+type RowSelectionState = Record<string, boolean>;
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -62,7 +65,18 @@ export function DataTable<TData, TValue>({
       delete: true,
       edit: true,
     });
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
+  const [selectedItemIds, setSelectedItemIds] = React.useState<number[]>([]);
+
+  React.useEffect(() => {
+    // Update selected item IDs when row selection changes, as the item IDa, not the row IDs
+    const selectedIds = table
+      .getSelectedRowModel()
+      .flatRows.map((row) => (row.original as { id: number }).id);
+
+    setSelectedItemIds(selectedIds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowSelection]);
 
   const table = useReactTable({
     data,
@@ -82,10 +96,16 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   });
+  const resetSelection = () => {
+    // Reset the selectedItemIds state
+    setSelectedItemIds([]);
+    // Reset the rowSelection state
+    setRowSelection({});
+  };
 
   return (
     <div>
-      <div className="flex items-center gap-2 py-3">
+      <div className="flex break-before-auto items-center gap-2 py-3">
         {/* Header */}
         <Input
           name=""
@@ -94,7 +114,7 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="min-w-40 max-w-sm"
         />
         <ClearUntrackedUptFiles />
         <ItemCreateForm variant="small" />
@@ -175,13 +195,15 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end space-x-4 py-4">
         {" "}
         {/* Footer */}
+        {selectedItemIds.length > 0 && (
+          <ItemsDeleteAlert itemIds={selectedItemIds} resetSelection={resetSelection} />
+        )}
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
-          
         </div>
         <Button
           variant="outline"

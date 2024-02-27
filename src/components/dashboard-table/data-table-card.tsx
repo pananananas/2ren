@@ -1,10 +1,12 @@
-import { useUser } from "@clerk/nextjs";
+import { useMediaQuery } from "usehooks-ts";
 import { DataTable } from "./data-table";
 import { LoadingPage } from "../loading";
+import { useUser } from "@clerk/nextjs";
 import { columns } from "./columns";
 import { api } from "~/utils/api";
 
 export default function DataTableCard() {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
   const { data, error, isLoading } = api.items.getAll.useQuery();
   const { data: itemImages } = api.itemImages.getAll.useQuery();
   const { user } = useUser();
@@ -33,12 +35,14 @@ export default function DataTableCard() {
         Items
         <span className="pt-1 text-sm text-gray-500">
           {" "}
-          Total {items.length} items on a website, {numOfVisibleItems} visible.{" "}
+          You have {items.length} items on a website, {numOfVisibleItems} of them are visible on home page.{" "}
         </span>
       </span>
-      <div className="container py-4">
-        <DataTable columns={columns} data={items} />
-      </div>
+      {isDesktop && (
+        <div className="container py-4">
+          <DataTable columns={columns} data={items} />
+        </div>
+      )}
     </div>
   );
 }
