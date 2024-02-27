@@ -26,7 +26,7 @@ export default function ItemGallery() {
   //   console.log("imagesData", imagesData);
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 pb-5 md:justify-start md:gap-5">
+    <div className="flex flex-wrap justify-center gap-3 pb-5 md:justify-start xs:gap-4 md:gap-5">
       <span className=" flex w-full pl-4 md:pl-2 pb-3 pt-20 text-3xl font-bold md:w-full justify-start md:pb-5 md:pt-32">
         Available products
       </span>

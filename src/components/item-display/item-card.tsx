@@ -10,12 +10,12 @@ export const ItemCard = ({
   selectedItemId,
 }: ItemCardProps) => {
   return (
-    <div
-      key={item.id}
-    >
-      <Card className={`w-[170px] p-[10px] lg:w-[180px] ${
-        selectedItemId === item.id ? "bg-gray-100" : ""
-      }`}>
+    <div key={item.id}>
+      <Card
+        className={`xs:w-[170px] w-[150px] p-[10px] lg:w-[180px]  ${
+          selectedItemId === item.id ? "bg-gray-100" : ""
+        }`}
+      >
         {/* Display the first image for this item, if available */}
         {itemImages.length > 0 && (
           <div className="relative h-[130px] w-full rounded-[5px]">

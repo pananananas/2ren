@@ -33,7 +33,7 @@ export const MobileHamburgerNavbar = () => {
   return (
     <div className="">
       <DropdownMenu onOpenChange={toggleClass} open={isActive}>
-        <DropdownMenuTrigger className="flex h-[60px] w-60 items-center focus-visible:outline-none">
+        <DropdownMenuTrigger className="flex h-[60px] w-48 xs:w-60 items-center focus-visible:outline-none">
           <Button variant="ghost" className="p-0 pr-16 hover:bg-transparent">
             <HamIcon isActive={isActive} />
             <span className="text-xl">{currentSite}</span>

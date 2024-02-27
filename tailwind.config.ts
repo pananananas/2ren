@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { withUt } from "uploadthing/tw";
+import defaultTheme from 'tailwindcss/defaultTheme'; // Import defaultTheme
 const config = {
   darkMode: ["class"],
   content: [
@@ -13,10 +14,10 @@ const config = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "xsm": "388px",
-        "2xl": "1400px",
-      },
+    },
+    screens: {
+      'xs': '388px', // Your custom screen size
+      ...defaultTheme.screens, // Spread the default screens after your custom one
     },
     extend: {
       fontFamily: {
