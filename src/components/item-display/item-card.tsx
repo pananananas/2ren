@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useMediaQuery } from "usehooks-ts";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardDescription, CardTitle } from "../ui/card";
 import { type ItemCardProps } from "~/types/itemCardProps"; // Import the interface
@@ -9,12 +11,28 @@ export const ItemCard = ({
   itemImages,
   selectedItemId,
 }: ItemCardProps) => {
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
+  const router = useRouter();
+  const openItemDisplay = (itemId: number) => {
+    if (isDesktop) return;
+    selectedItemId = itemId
+    void router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, itemId: itemId },
+      },
+      undefined,
+      { shallow: true },
+    );
+  };
   return (
     <div key={item.id}>
       <Card
         className={`xs:w-[170px] w-[150px] p-[10px] lg:w-[180px]  ${
           selectedItemId === item.id ? "bg-gray-100" : ""
         }`}
+        onClick={() => openItemDisplay(item.id)}
       >
         {/* Display the first image for this item, if available */}
         {itemImages.length > 0 && (
@@ -69,7 +87,7 @@ export const ItemCard = ({
           item={item}
           itemImages={itemImages}
           selectedItemId={selectedItemId}
-          isDesktop={null}
+          isDesktop={isDesktop}
         />
       </Card>
     </div>

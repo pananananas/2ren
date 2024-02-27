@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useRouter } from "next/router";
-import { useMediaQuery } from "usehooks-ts";
+
 import { Button } from "~/components/ui/button";
 import { type ItemCardProps } from "~/types/itemCardProps";
 import { ItemDisplayContents } from "./item-display-contents";
@@ -11,10 +11,11 @@ export function ItemDisplay({
   item,
   itemImages,
   selectedItemId,
+  isDesktop,
 }: ItemCardProps) {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+
 
   const openItemDisplay = (itemId: number) => {
     void router.push(
